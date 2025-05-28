@@ -15,6 +15,7 @@ import {DetailPage} from '../pages/detailTable/DetailPage'
 import axios from 'axios'
 import Pusher from 'pusher-js'
 import Echo from 'laravel-echo'
+import ShiftPage from '../modules/shift/ShiftPage'
 import MembershipTypesPage from '../modules/promote/membership-type/MembershipTypesPage'
 
 window.Pusher = Pusher
@@ -55,7 +56,6 @@ const PrivateRoutes = () => {
   const ResourcePage = lazy(() => import('../modules/resources/ResourcesPage'))
   const DiscountPage = lazy(() => import('../modules/promote/discount/DiscountsPage'))
   const CouponPage = lazy(() => import('../modules/promote/coupon/CouponsPage'))
-
 
   return (
     <Routes>
@@ -208,6 +208,14 @@ const PrivateRoutes = () => {
           }
         />
 
+        <Route
+          path='shift/*'
+          element={
+            <SuspensedView>
+              <ShiftPage />
+            </SuspensedView>
+          }
+        />
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
     </Routes>

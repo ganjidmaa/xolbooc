@@ -9,8 +9,8 @@ type Props = {
 
 const TwoInputComponent: FC<Props> = ({prop, formik, label, t = ''}) => {
   return (
-    <div className='col-lg-4 fv-row mb-3 mb-lg-0'>
-          <label className='fs-6 fw-bold mb-1'>{label}</label>
+    <div className='col-lg-4 fv-row mb-6 mb-lg-0'>
+          <label className='fs-6 fw-bold mb-2'>{label}</label>
           <div className='d-flex'>
             <input
               type='text'

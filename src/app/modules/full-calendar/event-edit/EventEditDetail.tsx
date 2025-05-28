@@ -39,13 +39,12 @@ const EventEditDetail: FC<Props> = ({
   const navigate = useNavigate()
   const {eventStartDate, eventIdForUpdate, eventUserId, activeTab, setHealthCondition, healthCondition} = useCalendarView()
   const {eventCustomer} = useCalendarQuery()
-  const {itemDatas, initialValue, desc, setItemDatas, conclusion, diagnosis} = useCalendarItem()
+  const {itemDatas, initialValue, desc, setItemDatas, conclusion} = useCalendarItem()
   const [validForm, setValidForm] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [startDate, setStartDate] = useState(Moment(eventStartDate).format('YYYY/MM/DD'))
-  const [descState, setDescState] = useState(eventIdForUpdate === 0 ? '' : desc)
-  const [diagnosisState, setDiagnosisState] = useState(eventIdForUpdate === 0 ? '' : diagnosis)
-  const [conclusionState, setConclusionState] = useState(eventIdForUpdate === 0 ? '' : conclusion)
+  const [descState, setDescState] = useState(desc)
+  const [conclusionState, setConclusionState] = useState(conclusion)
   const [readyNextItem, setReadyNextItem] = useState(false)
   const [lastEndTime, setLastEndTime] = useState('')
   const [showTooltip, setShowTooltip] = useState(false)
@@ -64,7 +63,6 @@ const EventEditDetail: FC<Props> = ({
       item_values: itemDatas.length > 0 ? itemDatas : [{...timeLineItem, service_id: 0}],
       event_date: startDate,
       desc: descState,
-      diagnosis: diagnosisState,
       conclusion: conclusionState,
       customer_id: eventCustomer?.value || 0,
       appointment_id: eventIdForUpdate || 0,
@@ -203,22 +201,6 @@ const EventEditDetail: FC<Props> = ({
                 />
               }
             </div>
-
-            <div className='mt-1 d-flex timeline'>
-              <div className='w-40px me-5'> </div>
-
-              <div className='timeline-content'>
-                <label className='fs-6 fw-bold mb-2'>Асуумжийн онош</label>
-                <textarea
-                  className='form-control mb-2'
-                  rows={1}
-                  placeholder='Асуумжийн онош'
-                  value={diagnosisState}
-                  onChange={(val) => setDiagnosisState(val.target.value)}
-                ></textarea>
-              </div>
-            </div>
-            
             <div className='mt-1 d-flex timeline'>
               <div className='w-40px me-5'> </div>
 
@@ -233,7 +215,6 @@ const EventEditDetail: FC<Props> = ({
                 ></textarea>
               </div>
             </div>
-
             <div className='mt-1 d-flex timeline'>
               <div className='w-40px me-5'> </div>
               <div className='timeline-content'>
@@ -247,9 +228,8 @@ const EventEditDetail: FC<Props> = ({
                 ></textarea>
               </div>
             </div>
-
             <div className='d-flex justify-content-between pt-5 mt-0 border-top'>
-              {eventIdForUpdate !== 0 && <div>
+              {/* {eventIdForUpdate !== 0 && <div>
                   <button
                     onClick={() => openHealthConditionModal()}
                     type='button'
@@ -264,7 +244,7 @@ const EventEditDetail: FC<Props> = ({
                       </span>
                     )}
                   </button>
-              </div>}
+              </div>} */}
 
               <div
                 onClick={() => {

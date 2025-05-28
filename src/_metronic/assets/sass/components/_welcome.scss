@@ -21,52 +21,7 @@ $welcome-font-14: 14px;
     font-size: $welcome-font-14;
     padding-bottom: 20px;
 }
-.welcome-swiper-container {
-    width: 65%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    // height: 100%;
-}
-.welcome-swiper-container>div,
-.welcome-swiper-container>div>div,
-.welcome-swiper-container>div>div>div,
-.welcome-swiper-container>div>div>div>ul
- {
-    height: 100%;
-}
 
-.welcome-swiper-container>div>div>div{
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.welcome-swiper-container>div>div>div>ul{
-    transition: all 0.6s !important;
-}
-
-.welcome-swiper-container .carousel .control-dots .dot{
-    background: blue !important;
-}
-
-.welcome-swiper-container .carousel .control-next.control-arrow::before,
-.welcome-swiper-container .carousel .control-prev.control-arrow::before{
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-}
-.welcome-swiper-container .carousel .control-next.control-arrow::before{
-  border-left: 8px solid #00f;
-}
-.welcome-swiper-container .carousel .control-prev.control-arrow::before{
-  border-right: 8px solid #00f;
-}
-.welcome-img{
-  width: 100%;
-  height: 100%;
-  // min-height: 600px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
 .welcome-company-img{
     height: 470px;
     width: 100%;
@@ -84,7 +39,11 @@ $welcome-font-14: 14px;
     width: 100%;
     max-width: 300px;
 }
-
+.welcome-img{
+    width: 60%;
+    height: 600px;
+    // background-size: contain;
+}
 .welcome-about{
     background-color: #ffecda;
     justify-content: space-around;
@@ -153,7 +112,12 @@ $welcome-font-14: 14px;
     .welcome-order{
         width: 100%;
     }
-
+    .welcome-img{
+        width: 70%; 
+        height: 530px;
+        background-size: cover;
+        background-position: center;
+    }
     .welcome-contact{
         display: block;
     }
@@ -200,25 +164,13 @@ $welcome-font-14: 14px;
   .welcome .box + .box {
     --d: bottom;
   }
-  .wrapper2 {
-    height: 100%;
-    width: 35%;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    border: 1px solid;
-    border-radius: 15px;
-    border-color: #d3d3d3;
-  //   align-items: center;
-    box-shadow: 0 0 12px #f4f4f4;
-    overflow: auto;
-  }
+
 @include media-breakpoint-down(md) {
     .welcome-img{
-        min-height: 300px;
-        // height: 300px;
+        width: 100%;
+        height: 350px;
         background-size: cover;
-        margin-inline: auto;
+        background-position: center;
     }
     .welcome-booking-btn{
         max-width: 100%;
@@ -235,15 +187,6 @@ $welcome-font-14: 14px;
         background-position: center;
         margin-left: 10%;
         width: 75%;
-    }
-    .welcome-swiper-container {
-        width: 100%;
-        // height: 300px;
-    }
-      .wrapper2 {
-        width: 100%;
-        overflow: hidden;
-        padding: 4px;
     }
 }
 
@@ -273,9 +216,7 @@ $welcome-font-14: 14px;
   padding: 0px;
   color: #2097b7;
   position: relative;
-  max-width: 1110px;
-  min-height: calc(100vh - 170px);
-  // max-width: clamp(0px, 90%, 1110px);
+  max-width: clamp(0px, 90%, 1110px);
   display: flex;
   flex-direction: column;
 }
@@ -339,11 +280,48 @@ $welcome-font-14: 14px;
   border-color: #d3d3d3;
   box-shadow: 0 0 12px #f4f4f4;
 }
+#wrapper2::-webkit-scrollbar {
+  width: 5px; /* Set the width of the scrollbar */
+}
 
+/* Customize the scrollbar thumb (the moving part) */
+#wrapper2::-webkit-scrollbar-thumb {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.2
+  ); /* Set the color of the scrollbar thumb */
+}
+
+/* Hide scrollbar arrows (not supported in Firefox) */
+#wrapper2::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Hide scrollbar track when not hovered (not supported in Firefox) */
+#wrapper2::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.wrapper2 {
+  // height: 700px;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  margin: 25px;
+  margin-top: 13px;
+  margin-right: 0px;
+  border: 1px solid;
+  border-radius: 15px;
+  border-color: #d3d3d3;
+  align-items: center;
+  box-shadow: 0 0 12px #f4f4f4;
+  overflow: auto;
+}
 .topSide {
   display: flex;
   flex-direction: row;
-  width: 100%;
 }
 .welcome-btn-color{
     background-color: #2097b7 !important;
@@ -352,7 +330,6 @@ $welcome-font-14: 14px;
   display: flex;
   align-items: center;
   margin-right: 0px;
-  padding-inline: 20px;
   flex-direction: column;
 }
 .logo_img{
@@ -462,7 +439,14 @@ i {
     width: 40%;
     font-size: 14px;
   }
-
+  .wrapper2 {
+    width: 100%;
+    margin: 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: fit-content;
+    overflow: unset;
+  }
   .footer_inside-div{
     justify-content: center;
   }

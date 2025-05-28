@@ -19,10 +19,11 @@ body {
     --fc-highlight-color: var(--kt-light);
     //--fc-non-business-color: 
     //--fc-bg-event-color:
-    --fc-bg-event-opacity: 0.3;
+    --fc-bg-event-opacity: 1;
     --fc-neutral-bg-color: var(--kt-light);
     //--fc-event-selected-overlay-color: 
-    --fc-today-bg-color: var(--kt-warning-light);
+    // --fc-today-bg-color: var(--kt-warning-light);
+    --fc-today-bg-color: #ffffff;
     //--fc-neutral-bg-color:
     //--fc-neutral-text-color:
     //--fc-more-link-text-color:
@@ -44,7 +45,17 @@ body {
     // Table
     table {
         font-size: 1rem;
-    }     
+    } 
+    
+    .fc-bg-event {
+        background-color: rgba(26, 25, 25, 0.4) !important;
+        pointer-events: none; 
+        color: #fff !important;
+    }
+
+    .fc-non-business {
+        background-color: rgba(212, 212, 212, 0.5) !important;
+    }
 
     // Button
     .fc-button { 
@@ -111,7 +122,24 @@ body {
             font-weight: $font-weight-semibold;
             color: var(--kt-gray-800);
         }
-    }    
+    }
+    
+    .fc-event-main-frame {
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-direction: row !important;
+        flex-wrap:wrap;
+        overflow: hidden;
+
+    }
+    .fc-event-main-frame>div{
+        min-height: fit-content;
+        text-shadow: 0 0 4px #5552;
+    }
+    .fc-event-main-frame>div:nth-last-child(1){
+        max-width: fit-content;
+    }
 
     // Border radius
     .fc-scrollgrid {
@@ -128,6 +156,9 @@ body {
         }
 
         tbody > tr:last-child {
+            td {
+                height: 25px;
+            }
             td:first-child {
                 @include border-bottom-start-radius($border-radius);
             }
@@ -148,7 +179,7 @@ body {
     .fc-daygrid-block-event {
         .fc-event-title,
         .fc-event-time {
-            padding: 0.25rem 0.25rem;
+            padding: 0.1rem 0.25rem;
         }
     }
 
@@ -255,7 +286,7 @@ body {
 
     // Main 
     .fc-timegrid-event .fc-event-main {
-        padding: 0.25rem 0.25rem;
+        padding: 0 0.25rem !important;
     }
 
     // Indicator arrow

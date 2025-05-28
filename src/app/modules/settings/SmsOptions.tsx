@@ -176,8 +176,9 @@ export const SmsOptions: FC = () => {
 
                         <div className='row mb-6'>
                             <div className='col-xl-3'>
-                                <div className='fs-6 fw-bold mt-2 mb-3'>Мэссэжийн түлхүүр үг</div>
+                            <div className='fs-6 fw-bold mt-2 mb-3'>Мэссэжийн түлхүүр үг</div>
                             </div>
+                            
                             <div className='col-xl-3 fv-row'>
                                 <span>$customer - эмчлүүлэгчийн нэр</span><br />
                                 <span>$doctor - эмчийн нэр</span><br />

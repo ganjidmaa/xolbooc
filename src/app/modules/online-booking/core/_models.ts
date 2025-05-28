@@ -76,11 +76,6 @@ export type Type = {
     id?: ID
 }
 
-export type CouponCodeResponse = {
-    data: number
-    statusCode: number
-}
-
 export type MasterData = {
     serviceCategories: Array<ServiceCategory>
     users: Array<User>
@@ -102,6 +97,8 @@ export type Item = {
 }
 
 export type AvailableHours = Array<Hour>
+
+export type AvailableDays = Array<Day>
 
 export type AvailableHoursByUsers = {
     event_date: string
@@ -193,4 +190,9 @@ export type Branch = {
 }
 export type Hour = {
     head_time: string
+}
+
+export type Day = {
+    date: string
+    enabled: boolean
 }

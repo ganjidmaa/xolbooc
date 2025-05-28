@@ -1,11 +1,13 @@
-import {FC, useEffect} from 'react'
+import {FC, useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
+import {KTSVG} from '../../../_metronic/helpers'
 import {useAuth} from '../auth'
 import {useCalendarData} from './core/CalendarDataProvider'
-import ImageSwiper from './ImageSwiper'
+import DismissBookingModalBody from './DismissBookingModalBody'
 
 export const WelcomePage: FC = () => {
   const {onlineBookingSettings, branches} = useCalendarData()
+  const [step, setStep] = useState(1)
   const {settings, loading} = useAuth()
   const currentYear = new Date().getFullYear()
   const weekDays = [
@@ -66,19 +68,71 @@ export const WelcomePage: FC = () => {
       <div id='mainContainer'>
         <div className='company_title'>
           <span id='company_name'>{settings?.company_name}</span>
-
-          <Link
-            to='/booking/service'
-            className='welcome-booking-btn btn btn-primary mb-xl-0 welcome-btn-color'
-            id='btn1'
-          >
-            Цаг авах
-          </Link>
-        </div>
-        <div className='d-flex flex-column flex-md-row mb-6 gap-6'>
-          <div className='welcome-swiper-container'>
-            <ImageSwiper />
+          <div className='d-flex gap-4'>
+            <Link
+              to='/booking/service'
+              className='px-2 py-sm-2 py-lg-4 bg-primary text-white rounded-4 mb-xl-0 fs-5 text-center'
+              style={{
+                lineHeight: 1.2,
+                flex: 1,
+                display: 'grid',
+                placeContent: 'center',
+                width: 148,
+                maxWidth: '20vw',
+              }}
+            >
+              Цаг авах
+            </Link>
+            <button
+              type='button'
+              data-bs-toggle='modal'
+              data-bs-target='#kt_modal_dismissBooking'
+              className='px-2 py-4 bg-danger text-white rounded-4 border-0 mb-xl-0 fs-5 '
+              style={{
+                lineHeight: 1.2,
+                flex: 1,
+                display: 'grid',
+                placeContent: 'center',
+                width: 148,
+                maxWidth: '20vw',
+              }}
+            >
+              Цаг цуцлах
+            </button>
           </div>
+          <div
+            data-bs-backdrop='static'
+            data-bs-keyboard='false'
+            className='modal px-4'
+            tabIndex={-1}
+            id='kt_modal_dismissBooking'
+          >
+            <div className='modal-dialog modal-dialog-centered mw-600px mx-auto'>
+              <div className='modal-content'>
+                <div className='modal-header p-8'>
+                  <h5 className='modal-title fs-2'>Онлайн цаг захиалгаа цуцлах</h5>
+                  <div
+                    className='btn btn-icon btn-sm btn-active-light-primary ms-2'
+                    data-bs-dismiss='modal'
+                    aria-label='Close'
+                    onClick={() => setStep(1)}
+                  >
+                    <KTSVG
+                      path='/media/icons/duotune/arrows/arr061.svg'
+                      className='svg-icon svg-icon-2x'
+                    />
+                  </div>
+                </div>
+                <div className='modal-body mx-4 my-10'>
+                  <DismissBookingModalBody step={step} setStep={setStep} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='topSide'>
+          {/* <div className='top' style={{ backgroundImage: `url("${onlineBookingSettings.image_url}")`,}}></div> */}
+          <img className='top' src={onlineBookingSettings.image_url} alt='pic' />
           <div className='wrapper2'>
             <div id='branches-wrapper'>
               <img src={settings?.logo_url} alt='logo' className='logo_img' />

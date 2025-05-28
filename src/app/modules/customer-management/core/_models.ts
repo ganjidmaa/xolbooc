@@ -41,7 +41,6 @@ export type AppointmentHistory = {
     cancellation_type?: string
     events: Array<Event>
     desc?: string
-    diagnosis?: string
     conclusion?: string
 }
 
@@ -54,7 +53,6 @@ export type Event = {
     end_time?: string
     duration?: string
     resource_name?: string
-    treatment?: string
 }
 
 export type CustomersQueryResponse = Response<Array<Customer>>

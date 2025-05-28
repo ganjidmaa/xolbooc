@@ -45,6 +45,18 @@ const CustomerToolbar = () => {
         <div className="d-flex align-items-center overflow-auto">                  
             <div className="bullet bg-secondary h-35px w-1px mx-6"></div>
             
+            {/* <div className="d-flex align-items-center">
+                <button type="button" 
+                    // disabled={!objectHasAttr(eventCustomer)}
+                    className="btn btn-sm btn-icon btn-light-success" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Буцах"
+                    onClick={removeSelectCustomer}
+                >
+                    <KTSVG path="/media/icons/duotune/general/gen021.svg" className="svg-icon-1 svg-icon-success" />
+                </button>
+            </div> */}
             <div data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Хайлт"
                 onClick={() => {removeSelectCustomer()}}
             >

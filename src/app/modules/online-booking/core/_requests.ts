@@ -1,11 +1,13 @@
 import axios, { AxiosResponse } from "axios"
 import { ID, Response } from "../../../../_metronic/helpers"
-import { AvailableHours, Item, MasterData, ServiceCategory, User } from "./_models"
+import { AvailableDays, AvailableHours, Item, MasterData, ServiceCategory, User } from "./_models"
 
 const APP_URL = process.env.REACT_APP_API_URL
 const BOOKING_URL = `${APP_URL}/online_booking`
+const MOBILE_URL = `${APP_URL}/mobile`
 const MASTER_DATA_URL = `${BOOKING_URL}/master_data`
 const AVAILABLE_HOURS_URL = `${BOOKING_URL}/available_hours`
+
 
 const getMasterDatas = (): Promise<MasterData> => {
     return axios
@@ -17,6 +19,12 @@ const getAvailableHours = (data: any): Promise<AvailableHours> => {
     return axios
         .post(`${AVAILABLE_HOURS_URL}`, data)
         .then((response: AxiosResponse<AvailableHours>) => response.data)
+}
+
+const getAvailableDays = (data: any): Promise<AvailableDays> => {
+    return axios
+        .post(`${BOOKING_URL}/available_days`, data)
+        .then((response: AxiosResponse<AvailableDays>) => response.data)
 }
 
 const bookingAppointment = (itemData: Item): Promise<Response<Item>> => {
@@ -37,10 +45,32 @@ const getBranchUsers = (getUsersRequest: any): Promise<Array<User>> => {
         .then((response: AxiosResponse<Array<User>>) => response.data)
 }
 
+const getOtpcode = (mobile: any): Promise<any> => {
+    return axios
+        .post(`${MOBILE_URL}/get_code`, mobile)
+        .then((response: AxiosResponse<any>) => response.data)
+}
+
+const checkOtpCode = (otpCode: any): Promise<any> => {
+    return axios
+        .post(`${MOBILE_URL}/confirm_code`, otpCode)
+        .then((response: AxiosResponse<any>) => response.data)
+}
+
+const deleteBooking = (app_id: any): Promise<any> => {
+    return axios
+        .post(`${MOBILE_URL}/cancel_event`, app_id)
+        .then((response: AxiosResponse<any>) => response.data)
+}
+
 export {
     getMasterDatas,
     getAvailableHours,
     bookingAppointment,
     getBranchServices,
     getBranchUsers,
+    getOtpcode,
+    checkOtpCode,
+    deleteBooking,
+    getAvailableDays
 }

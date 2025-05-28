@@ -13,7 +13,7 @@ import { Event } from "../core/_models"
 
 export const EventPage = () => {
     const {eventIdForUpdate} = useCalendarView()
-    const {setItemDatas, setDesc, setConclusion, setDiagnosis} = useCalendarItem()
+    const {setItemDatas, setDesc, setConclusion} = useCalendarItem()
     const {eventCustomer, setEventCustomer} = useCalendarQuery()
     const enableQuery = isNotEmpty(eventIdForUpdate)
     const [asideType, setAsideType] = useState('')
@@ -31,8 +31,8 @@ export const EventPage = () => {
             enabled: enableQuery
         }
     )
-    // setDesc('')
-    // setConclusion('')
+    setDesc('')
+    setConclusion('')
     useEffect(() => {
         if(eventDatas) {
             setEvent(eventDatas.appointment)
@@ -45,7 +45,6 @@ export const EventPage = () => {
             }
             setDesc(eventObj.desc || '')
             setConclusion(eventObj.conclusion || '')
-            setDiagnosis(eventObj.diagnosis || '')
 
             const status = eventObj.status
             let type = (status === 'completed' || status === 'part_paid' || status === 'unpaid') ? 'view' : 'edit'

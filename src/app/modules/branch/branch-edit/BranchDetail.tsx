@@ -41,6 +41,8 @@ export const BranchDetail: FC<Props> = ({branch}) => {
     slot_duration: branch.slot_duration || '30',
     start_time: branch.start_time || '09:00',
     end_time: branch.end_time || '18:00',
+    lunch_start_time: branch.lunch_start_time || '',
+    lunch_end_time: branch.lunch_end_time || '',
     business_days: branch.business_days || '12345',
   })
 
@@ -196,7 +198,7 @@ export const BranchDetail: FC<Props> = ({branch}) => {
 
           <div className='row mb-8'>
             <div className='col-xl-3'>
-              <div className='fs-6 fw-bold mt-2 mb-3 required'>Ажилын өдрүүд</div>
+              <div className='fs-6 fw-bold mt-2 mb-3 required'>Ажлын өдрүүд</div>
             </div>
             <div className='col-xl-8 fv-row'>
               <div className='form-group'>
@@ -218,6 +220,39 @@ export const BranchDetail: FC<Props> = ({branch}) => {
                   )
                 })}
               </div>
+            </div>
+
+            <div className='row mb-8'>
+                <div className='col-xl-3'>
+                    <div className='fs-6 fw-bold mt-2 mb-3'>Цайны цаг</div>
+                </div>
+                <div className='col-6 col-xl-4 fv-row'>
+                    <Datetime
+                        className='timePicker'
+                        dateFormat={false}
+                        timeFormat='HH:mm'
+                        {...formik.getFieldProps('lunch_start_time')}
+                        onChange={(val) => {
+                        handleOnChangeTime('lunch_start_time', val)
+                        }}
+                    />
+                </div>
+                <div className='col-6 col-xl-4 fv-row'>
+                    <Datetime
+                        className='timePicker'
+                        dateFormat={false}
+                        timeFormat='HH:mm'
+                        {...formik.getFieldProps('lunch_end_time')}
+                        onChange={(val) => {
+                        handleOnChangeTime('lunch_end_time', val)
+                        }}
+                    />
+                </div>
+                <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                          {"Цайны цагаар захиалга авдаг бол хоосон орхиж болно."}
+                  </div>
+                </div>
             </div>
 
             <div className='row mb-8'>

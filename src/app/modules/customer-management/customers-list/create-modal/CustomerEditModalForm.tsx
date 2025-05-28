@@ -422,7 +422,6 @@ const CustomerEditModalForm: FC<Props> = ({customer, soumDistrictsData, province
         </div>
         {/* end::Actions */}
       </form>
-      {/* {(formik.isSubmitting || isUserLoading) && <UsersListLoading />} */}
     </>
   )
 }

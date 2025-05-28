@@ -26,7 +26,8 @@ const QUERIES = {
   SMS_HISTORY: 'sms-history',
   APP_OPTIONS_LIST: 'app-options',
   HEALTH_CONDITION: 'health-condition',
-  SERVICE_METHODS_LIST: 'service-methods'
+  SERVICE_METHODS_LIST: 'service-methods',
+  SHIFT_LIST: 'shift-list',
 }
 
 const STATES = {

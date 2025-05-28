@@ -7,7 +7,9 @@ export const FormAlert = async () => {
             input: 'select',
             inputOptions: {
                 'mistake': 'Санамсаргүй үүсгэсэн',
-                'user_request': 'Эмчийн хүсэлтээр'
+                'user_request': 'Эмчийн хүсэлтээр',
+                'user_accept': 'Үйлчилгээгээ авсан',
+                'user_decline': 'Үйлчлүүлэгч өдрөө өөрчилсөн',
             },
             inputPlaceholder: 'Сонгоно уу',
             confirmButtonText: 'Тийм',

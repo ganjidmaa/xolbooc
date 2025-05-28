@@ -1,4 +1,11 @@
 import { FC } from 'react';
+import { CRUD_RESPONSES, LightColor } from '../../../../_metronic/helpers';
+import { InfoAlert } from '../../../../_metronic/helpers/alerts/Info';
+import { FormAlert } from '../../../../_metronic/helpers/alerts/FormAlert';
+import { cancelEvent } from '../core/_requests';
+import { NotifySuccess } from '../../../../_metronic/helpers/notify/NotifySuccess';
+import { useCalendarView } from '../core/CalendarViewProvider';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     changeTreatmentStatus: (value: string) => void
@@ -6,6 +13,8 @@ type Props = {
 }
 
 export const TreatmentStatusSelection:FC<Props> = ({changeTreatmentStatus, currentTreatmentStatus}) => {
+    const {eventIdForUpdate} = useCalendarView()
+    const navigate = useNavigate()
 
     const onClickChangeStatus = (value: string) => {
             changeTreatmentStatus(value)

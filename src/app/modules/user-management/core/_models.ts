@@ -101,3 +101,25 @@ export const initialDetailView = {
   setItemIdForDetail: () => {},
   refetch: () => {}
 }
+
+
+export type Shift = {
+  start: string
+  end: string
+};
+
+export type DaySchedule = {
+  enabled: boolean
+  shifts: Shift[]
+  name: string
+};
+
+export type Schedule = {
+  monday: DaySchedule
+  tuesday: DaySchedule
+  wednesday: DaySchedule
+  thursday: DaySchedule
+  friday: DaySchedule
+  saturday: DaySchedule
+  sunday: DaySchedule
+};

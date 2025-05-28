@@ -4,7 +4,7 @@ import subprocess
 
 load_dotenv()
 application_location = '../'
-env_files_location = './eye'
+env_files_location = './hospital'
 ssh_pass=os.getenv('SSH_PASS')
 ssh_host=os.getenv('SSH_HOST')
 

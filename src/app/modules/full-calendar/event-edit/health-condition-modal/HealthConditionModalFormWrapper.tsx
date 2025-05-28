@@ -35,6 +35,7 @@ const HealthConditionModalFormWrapper:FC<Props> = ({id , setFunction}) => {
     if (data) {
       setHealthConditionData(data)
     }
+    console.log(data)
   }, [data])
 
   if (healthConditionData.appointment_id !== 0) {

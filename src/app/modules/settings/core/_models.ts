@@ -11,6 +11,8 @@ export type Settings = {
     slot_duration?: string
     start_time?: string
     end_time?: string
+    lunch_start_time?: string
+    lunch_end_time?: string
     file?: any
     has_branch?: boolean
     has_service_type?: boolean

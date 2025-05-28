@@ -18,9 +18,14 @@ import {getEvents, changeEvent, cancelEvent} from '../core/_requests'
 import {useCalendarItem} from '../core/CalendarItemProvider'
 import {useCalendarData} from '../core/CalendarDataProvider'
 import {useCalendarQuery} from '../core/CalendarQueryProvider'
-import {User, Resource} from '../core/_models'
+import {User, Resource, EventShift, Shift} from '../core/_models'
 import {CRUD_RESPONSES, ID, ROLES} from '../../../../_metronic/helpers'
-import {userCanCreateEvents, userCanUpdateEvents, userCanViewAllEvents} from '../core/consts'
+import {
+  userCanCreateEvents,
+  userCanDeleteEvents,
+  userCanUpdateEvents,
+  userCanViewAllEvents,
+} from '../core/consts'
 import {NotifyWarning} from '../../../../_metronic/helpers/notify/NotifyWarning'
 import {NotifyError} from '../../../../_metronic/helpers/notify/NotifyError'
 import {useAuth} from '../../auth'
@@ -74,6 +79,7 @@ const FullCalendarView: FC = () => {
   const {setEventCustomer} = useCalendarQuery()
   const {resources, users, branches} = useCalendarData()
   const {setItemDatas} = useCalendarItem()
+  const [shifts, setShifts] = useState<Array<Shift>>([])
   const [userLists, setUserLists] = useState<any>([])
   const [events, setEvents] = useState<any>([])
   const [dates, setDates] = useState<{startDate: string; endDate: string}>()
@@ -83,7 +89,7 @@ const FullCalendarView: FC = () => {
   const [slotMinTime, setSlotMinTime] = useState('')
   const [slotMaxTime, setSlotMaxTime] = useState('')
   const [slotDuration, setSlotDuration] = useState(settings?.slot_duration as string)
-  const [businessDays, setBusinessDays] = useState('12345')
+  const [targetDate, setTargetDate] = useState<string | null>(null)
 
   useEffect(() => {
     setItemDatas([])
@@ -95,15 +101,17 @@ const FullCalendarView: FC = () => {
   }, [])
 
   useEffect(() => {
-    if (users.length > 0) {
-      const newUsers = userCanViewAllEvents(userRole)
-        ? settings?.has_branch
-          ? users.filter((user) => (user.branch_id as string).includes(activeTab + ''))
-          : users
-        : users.filter((user) => user.id === loginUserId)
-      setUserLists(newUsers)
-    }
-  }, [users, activeTab])
+    // let resourceDatas = shifts.length > 0 ? shifts : users;
+    let resourceDatas = shifts
+
+    const newUsers = userCanViewAllEvents(userRole)
+      ? settings?.has_branch
+        ? resourceDatas.filter((user) => (user.branch_id as string).includes(activeTab + ''))
+        : resourceDatas
+      : resourceDatas.filter((user) => user.id === loginUserId)
+
+    setUserLists(newUsers)
+  }, [activeTab, shifts])
 
   useEffect(() => {
     if (settings?.has_branch) {
@@ -111,11 +119,9 @@ const FullCalendarView: FC = () => {
       branch && branch.end_time && setSlotMaxTime(branch.end_time)
       branch && branch.start_time && setSlotMinTime(branch.start_time)
       branch && branch.slot_duration && setSlotDuration(branch.slot_duration)
-      branch && branch.business_days && setBusinessDays(branch.business_days)
     } else {
       settings && settings.start_time && setSlotMinTime(settings.start_time)
       settings && settings.end_time && setSlotMaxTime(settings.end_time)
-      settings && settings.business_days && setBusinessDays(settings.business_days)
     }
   }, [settings, activeTab, branches])
 
@@ -132,8 +138,9 @@ const FullCalendarView: FC = () => {
         : {...dates, branch_id: activeTab}
       const response = await getEvents(params)
       const status = response.payload?.status
-      const responseEvents = response.data ? response.data : []
-      status && status === 200 && setEvents(responseEvents)
+      const responseData = response.data as EventShift
+      status && status === 200 && setEvents(responseData.events)
+      status && status === 200 && setShifts(responseData.shifts)
     } catch (ex: any) {
       console.error(ex.response)
       ex.response?.status === 422
@@ -196,11 +203,12 @@ const FullCalendarView: FC = () => {
     setUserLists(filteredResources)
     setOpenMenu(!openMenu)
   }
-  const[targetDate, setTargetDate] = useState<string | null>(null)
-  useEffect(()=>{
+
+  useEffect(() => {
     setTargetDate(sessionStorage.getItem('target_date'))
     sessionStorage.removeItem('target_date')
-  },[sessionStorage.getItem('target_date')])
+  }, [sessionStorage.getItem('target_date')])
+
   useEffect(() => {
     window.Echo.private(`users.${currentUser?.id}`).notification(async (notification: any) => {
       if (notification.type === 'App\\Notifications\\EventsChanged') {
@@ -217,6 +225,7 @@ const FullCalendarView: FC = () => {
       }
     })
   }, [dates])
+
   const CustomDropdown = () => {
     return (
       <div
@@ -293,10 +302,27 @@ const FullCalendarView: FC = () => {
       )
     }
   }
+
+  const nonClickableBgEvents = (info: any) => {
+    let bgEvent = false
+    const clickedElement = info.jsEvent.target as HTMLElement
+    clickedElement.querySelectorAll('div').forEach((element) => {
+      if (element.classList.contains('fc-bg-event')) {
+        bgEvent = true
+      }
+    })
+    if (clickedElement.classList.contains('fc-non-business')) {
+      bgEvent = true
+    }
+
+    return bgEvent
+  }
+
   const initialView =
     settings?.calendar_view_type === 'timeline' && userRole !== USER
       ? 'resourceTimeline'
       : 'resourceTimeGrid'
+
   return (
     <div className='card'>
       <div className='card-body'>
@@ -307,10 +333,11 @@ const FullCalendarView: FC = () => {
           offset={{top: 0}}
           effect='solid'
           textColor='white'
-          className='px-3 py-1'
+          className='px-3 pb-4 pt-1'
         />
+
         {openMenu && <CustomDropdown />}
-        {slotMinTime && slotMaxTime &&(
+        {slotMinTime && slotMaxTime && (
           <FullCalendar
             plugins={[
               resourceDayGridPlugin,
@@ -320,7 +347,11 @@ const FullCalendarView: FC = () => {
               resourceTimelinePlugin,
             ]}
             initialView={initialView}
-            initialDate={ eventStartDate || (targetDate && new Date(targetDate)) || Moment().format('YYYY-MM-DD HH:mm:ss')}
+            initialDate={
+              eventStartDate ||
+              (targetDate && new Date(targetDate)) ||
+              Moment().format('YYYY-MM-DD HH:mm:ss')
+            }
             schedulerLicenseKey='CC-Attribution-NonCommercial-NoDerivatives'
             headerToolbar={{
               left: 'prev,next myCustomButton',
@@ -345,16 +376,14 @@ const FullCalendarView: FC = () => {
               resourceTimeline: 'Өдөр',
               resourceTimeGrid: 'Өдөр',
             }}
+            editable={true}
             navLinks={true}
             allDaySlot={false}
-            selectable={true}
             slotMinTime={slotMinTime}
             slotMaxTime={slotMaxTime}
             slotDuration={{minutes: parseInt(slotDuration)}}
-            editable={true}
             nowIndicator={true}
             now={Moment().format()}
-            resourceAreaWidth={'15%'}
             slotLabelFormat={{
               hour: 'numeric',
               minute: '2-digit',
@@ -370,6 +399,15 @@ const FullCalendarView: FC = () => {
                 },
                 titleFormat: 'YYYY/MM',
               },
+              timeGridWeek: {
+                dayHeaderFormat: {
+                  weekday: 'short',
+                  month: 'numeric',
+                  day: 'numeric',
+                  omitCommas: true,
+                },
+                titleFormat: `MM/DD`,
+              },
               timeGrid: {
                 dayHeaderFormat: {
                   weekday: 'short',
@@ -377,23 +415,14 @@ const FullCalendarView: FC = () => {
                   day: 'numeric',
                   omitCommas: true,
                 },
-                titleFormat: 'MM/DD',
               },
             }}
+            businessHours
             titleFormat={function (arg) {
               return CustomHeaderNames(
                 'resourceTimeline',
                 arg.date.marker.getDay(),
                 arg.date.marker
-              )
-            }}
-            selectOverlap={function (event) {
-              return event.display !== 'background'
-            }}
-            eventOverlap={function (stillEvent, movingEvent) {
-              return (
-                stillEvent.display !== 'background' ||
-                stillEvent.backgroundColor !== blockedTimeColor
               )
             }}
             dayHeaderContent={function (arg) {
@@ -406,37 +435,34 @@ const FullCalendarView: FC = () => {
             events={events}
             resources={userLists}
             eventClick={function (info) {
-              if (businessDays.includes(Moment(info.event.start).format('d'))) {
-                if (userCanUpdateEvents(userRole)) {
-                  if (info.event.backgroundColor !== blockedTimeColor) {
-                    info.jsEvent.preventDefault() // don't let the browser navigate
-                    setEventStartDate(Moment(info.event.start).format('YYYY-MM-DD HH:mm:ss'))
-                    setEventIdForUpdate(
-                      info.event._def.extendedProps.appointment_id
-                        ? parseInt(info.event._def.extendedProps.appointment_id)
-                        : 0
-                    )
-                    const userId =
-                      (info.event._def.resourceIds && info.event._def.resourceIds[0]) || '0'
-                    setEventUserId(Number(userId))
-                    navigate('/calendar/index/event/view')
-                  } else {
-                    handleDelete(info.event._def.extendedProps.appointment_id)
-                  }
+              if (userCanUpdateEvents(userRole) && info.event._def.extendedProps.appointment_id) {
+                if (info.event.backgroundColor !== blockedTimeColor) {
+                  info.jsEvent.preventDefault() // don't let the browser navigate
+                  setEventStartDate(Moment(info.event.start).format('YYYY-MM-DD HH:mm:ss'))
+                  setEventIdForUpdate(
+                    info.event._def.extendedProps.appointment_id
+                      ? parseInt(info.event._def.extendedProps.appointment_id)
+                      : 0
+                  )
+                  const userId =
+                    (info.event._def.resourceIds && info.event._def.resourceIds[0]) || '0'
+                  setEventUserId(Number(userId))
+                  navigate('/calendar/index/event/view')
+                } else if (
+                  userCanDeleteEvents(userRole) &&
+                  info.event._def.extendedProps.appointment_id > 0
+                ) {
+                  handleDelete(info.event._def.extendedProps.appointment_id)
                 }
               }
             }}
             dateClick={function (info) {
-              if (businessDays.includes(Moment(info.date).format('d'))) {
-                if (userCanCreateEvents(userRole)) {
-                  const clickedElement = info.jsEvent.target as HTMLElement
-                  if (!clickedElement.classList.contains('fc-bg-event')) {
-                    setEventStartDate(Moment(info.date).format('YYYY-MM-DD HH:mm:ss'))
-                    setEventUserId(info.resource ? parseInt(info.resource.id) : 0)
-                    setEventIdForUpdate(0)
-                    navigate('/calendar/index/event/edit')
-                  }
-                }
+              let bgEvent = nonClickableBgEvents(info)
+              if (userCanCreateEvents(userRole) && !bgEvent) {
+                setEventStartDate(Moment(info.date).format('YYYY-MM-DD HH:mm:ss'))
+                setEventUserId(info.resource ? parseInt(info.resource.id) : 0)
+                setEventIdForUpdate(0)
+                navigate('/calendar/index/event/edit')
               }
             }}
             eventChange={function (info) {
@@ -453,6 +479,24 @@ const FullCalendarView: FC = () => {
             }}
           />
         )}
+      </div>
+      <div className='mx-10 mb-10'>
+        <div className='d-flex flex-wrap gap-4 mx-auto text-bg-light px-8 py-4'>
+          <h4 className=''>Төлвүүд:</h4>
+          <div className='badge badge-secondary px-4 h-30px fs-6 fw-bold'>Захиалсан</div>
+          <div
+            className='badge badge-warning px-4 h-30px fs-6 fw-bold'
+            style={{textShadow: '0px 0px 5px #0002'}}
+          >
+            Баталгаажсан
+          </div>
+          <div className='badge badge-success px-4 h-30px fs-6 fw-bold'>Ирсэн</div>
+          <div className='badge badge-danger px-4 h-30px fs-6 fw-bold'>Ирээгүй</div>
+          <div className='badge badge-info px-4 fs-6 fw-normal'>Мэс засал</div>
+          <div className='badge p-4 fs-6  h-30px fw-bold' style={{backgroundColor: '#50CD89'}}>
+            Төлсөн
+          </div>
+        </div>
       </div>
     </div>
   )

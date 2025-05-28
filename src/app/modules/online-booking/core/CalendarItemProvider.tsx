@@ -33,7 +33,6 @@ const CalendarItemProvider: FC<WithChildren> = ({children}) => {
         {'title': 'Эмчлүүлэгч', 'breakedTitle': 'Эмчлүү лэгч', 'icon': 'fa-solid fa-user-check', 'path': 'customer', 'errorMessage': 'Өөрийн мэдээллээ оруулна уу !'},
         {'title': 'Анхааруулга', 'breakedTitle': 'Анхаар уулга', 'icon': 'fa-solid fa-circle-exclamation', 'path': 'note', 'errorMessage': ''},
     ]
-    let bookingQpayStep = {'title': 'Урьдчилгаа', 'breakedTitle': 'Урьд чилгаа', 'icon': 'fa-solid fa-money-bill', 'path': 'payment', 'errorMessage': ''}
     
     const [bookingSteps, setBookingSteps] = useState<Array<Step>>(bookingStepData)
 
@@ -48,10 +47,6 @@ const CalendarItemProvider: FC<WithChildren> = ({children}) => {
         if(settings?.has_service_type === false) {
             filteredSteps = filteredSteps.filter(step => step.path !== 'type')
         }
-        // if(settings?.choose_qpay === true) {
-            // filteredSteps.push(bookingQpayStep)
-        // }
-
         setBookingSteps(filteredSteps)
     }, [onlineBookingSettings])
 
@@ -92,14 +87,11 @@ const CalendarItemProvider: FC<WithChildren> = ({children}) => {
     }
 
     const fetchUsersApi = async () => {
-        var getUserData = {
-            branch: itemDatas.branch?.id,
-            currentService: itemDatas.service_ids
-        }
         const response = await getBranchUsers(itemDatas)
         response && setUsers(response)
         return true
     }
+    
     return (
         <CalendarItemContext.Provider 
             value={{

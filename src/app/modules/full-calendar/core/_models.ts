@@ -21,7 +21,6 @@ export type Event = {
     ref?: any
     is_serviceless?: boolean
     invoice?: Invoice
-    diagnosis?: string
 }
 
 export type Invoice = {
@@ -126,6 +125,24 @@ export type MasterData = {
     branches: Array<Branch>
     bankAccounts: Array<BankAccount>
     serviceMethods: Array<ServiceMethod>
+}
+
+export type Shift = {
+    value?: ID
+    label?: string
+    id?: ID
+    title?: string
+    branch_id?: string
+    businessHours: {
+        daysOfWeek: Array<number>
+        startTime: string
+        endTime: string
+    }
+}
+
+export type EventShift = {
+    events: Array<Event>
+    shifts: Array<Shift>
 }
 
 export type EventDatas = {
@@ -241,8 +258,6 @@ export type CalendarItemContextProps = {
     setItemDatas: Dispatch<SetStateAction<Array<Item>>>
     desc: string,
     conclusion: string,
-    diagnosis: string,
-    setDiagnosis: Dispatch<SetStateAction<string>>
     setConclusion: Dispatch<SetStateAction<string>>
     setDesc: Dispatch<SetStateAction<string>>
 }
@@ -343,8 +358,6 @@ export const initialCalendarItem: CalendarItemContextProps = {
     itemDatas: [],
     setItemDatas: () => {},
     desc: '',
-    diagnosis: '',
-    setDiagnosis: ()=>{},
     conclusion: '',
     setDesc: () => {},
     setConclusion: () => {},

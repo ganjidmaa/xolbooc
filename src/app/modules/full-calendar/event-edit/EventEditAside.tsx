@@ -50,7 +50,7 @@ const EventEditAside: FC<Props> = ({
   const popover1 = popOverlay('Эмчилгээ сонгоно уу.')
 
   return (
-    <div className='flex-column flex-lg-row-auto gap-7 gap-lg-10 me-lg-5 mb-5 mb-lg-0'>
+    <div className='flex-column flex-lg-row-auto gap-7 gap-lg-10 me-lg-5'>
       <div className='card card-flush pb-4 pt-2' style={{height: '100%'}}>
         <div className='card-header'>
           <div className='card-title d-flex justify-content-between flex-wrap flex-stack w-100 me-0 border-bottom'>

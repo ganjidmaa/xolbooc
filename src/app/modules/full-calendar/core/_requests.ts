@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios"
 import { ID, Response } from "../../../../_metronic/helpers"
-import { AllItemDatas, CouponCode, Customer, Event, MasterData, PaymentForm, User, HealthCondition, EventDatas,} from "./_models"
+import { AllItemDatas, CouponCode, Customer, Event, EventDatas, MasterData, PaymentForm, User, HealthCondition, EventShift } from "./_models"
 import { PaymentMethod } from "../../auth"
 import { Invoice, Payment, QpayInvoiceRequest, QpayInvoiceRequestCheck, QpayInvoiceResponse, QpayInvoiceResponseCheck } from "../../customer-management/core/_models"
 
@@ -21,10 +21,10 @@ const getMasterDatas = (): Promise<MasterData> => {
     .then((response: AxiosResponse<MasterData>) => response.data)
 }
 
-const getEvents = (dates: object): Promise<Response<Array<Event>>> => {
+const getEvents = (dates: object): Promise<Response<EventShift>> => {
     return axios
     .post(GET_EVENTS_URL, dates)
-    .then((response: AxiosResponse<Response<Array<Event>>>) => response.data)
+    .then((response: AxiosResponse<Response<EventShift>>) => response.data)
 }
 
 const getEventById = (id: ID): Promise<EventDatas | undefined> => {
@@ -138,9 +138,9 @@ const voidPayment = (eventId: ID): Promise<Response<Invoice>> => {
     .then((response: AxiosResponse<Response<Invoice>>) => response.data)
 }
 
-const printHealthCondition = (id: ID): Promise<Response<any>> => {
+const printHealthCondition = (id: ID):  Promise<Response<any>> => {
     return axios
-        .post(`${HEALTH_CONDITION}/print/${id}`)
+        .get(`${HEALTH_CONDITION}/print/${id}`)
         .then((response: AxiosResponse<Response<any>>) => response.data)
 }
 const qpayInvoice = (qpayInvoiceRequestData: QpayInvoiceRequest): Promise<Response<QpayInvoiceResponse>> => {

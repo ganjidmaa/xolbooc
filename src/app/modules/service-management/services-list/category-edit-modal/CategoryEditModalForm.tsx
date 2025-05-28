@@ -28,7 +28,7 @@ const CategoryEditModalForm: FC<Props> = ({category, isServiceLoading}) => {
   const [serviceForEdit] = useState<Category>({
     ...category,
     name: category.name || '',
-    is_app_option: category.is_app_option
+    is_app_option: category.is_app_option || false,
   })
 
   const cancel = (withRefresh?: boolean) => {

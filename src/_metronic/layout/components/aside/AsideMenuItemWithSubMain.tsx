@@ -46,7 +46,7 @@ const AsideMenuItemWithSubMain: FC<Props & WithChildren> = ({
           {fontIcon && aside.menuIcon === 'font' && (
             <>
               <span className='menu-icon me-0'>
-                <i className={clsx('bi', fontIcon, 'fs-2')}></i>
+                <i className={clsx('bi p-0', fontIcon, 'fs-2')}></i>
               </span>
               {/* <span className='menu-title me-4'>{title}</span> */}
             </>

@@ -7,6 +7,7 @@ export type MembershipType = {
   limit_price?: string
   type?: string
   activeDiscountCard?: boolean
+  use_password?: boolean
 }
 
 export type Membership = {

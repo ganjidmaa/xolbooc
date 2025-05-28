@@ -143,6 +143,7 @@ export function AsideMenuMain() {
               className='py-3'
             />
           )}
+          
 
           <AsideMenuItemWithSubMain to='/settings' title='Тохиргоо' fontIcon='bi-gear'>
             <AsideMenuItem
@@ -163,6 +164,12 @@ export function AsideMenuMain() {
               hasBullet={true}
               bsTitle='Онлайн захиалгын тохиргоо'
             />
+            <AsideMenuItem
+              to='/shift/schedules'
+              title='Ажиллах хуваарь'
+              hasBullet={true}
+              bsTitle='Хуваарь'
+          />
           </AsideMenuItemWithSubMain>
         </>
       )}

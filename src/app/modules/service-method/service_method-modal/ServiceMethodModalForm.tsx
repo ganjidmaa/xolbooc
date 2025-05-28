@@ -42,6 +42,7 @@ const ServiceMethodModalForm: FC<Props> = ({serviceMethod}) => {
       }
     },
   })
+  console.log(formik)
 
   return (
     <>

@@ -8,6 +8,7 @@ export type MembershipType = {
   type?: string
   value?: ID
   label?: string
+  use_password?: boolean
 }
 
 export type Membership = {
@@ -17,6 +18,7 @@ export type Membership = {
   selected_customers?: Array<ID>
   percent?: number
   password?: string
+  use_password?: boolean
   activeDiscountCard?: boolean
   title?: string
   customer_number?: string

@@ -6,8 +6,7 @@ import {Link} from 'react-router-dom'
 import {useLocation} from 'react-router'
 import {checkIsActive, KTSVG, WithChildren} from '../../../helpers'
 import {useLayout} from '../../core'
-import { OverlayTrigger, Tooltip } from 'react-bootstrap'
-
+import {OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 type Props = {
   to: string
@@ -36,7 +35,6 @@ const AsideMenuItem: FC<Props & WithChildren> = ({
   const {config} = useLayout()
   const {aside} = config
 
-
   return (
     <OverlayTrigger
       placement='right'
@@ -56,7 +54,7 @@ const AsideMenuItem: FC<Props & WithChildren> = ({
           >
             {fontIcon && aside.menuIcon === 'font' && (
               <span className='menu-icon me-0'>
-                <i className={clsx('bi', fontIcon, 'fs-2')}></i>
+                <i className={clsx('bi p-0', fontIcon, 'fs-2')}></i>
               </span>
             )}
           </a>
@@ -84,7 +82,7 @@ const AsideMenuItem: FC<Props & WithChildren> = ({
               {fontIcon && aside.menuIcon === 'font' ? (
                 <>
                   <span className='menu-icon me-0'>
-                    <i className={clsx('bi', fontIcon, 'fs-2')}></i>
+                    <i className={clsx('bi p-0', fontIcon, 'fs-2')}></i>
                   </span>
                   {/* <span className='menu-title me-4'>{title}</span> */}
                 </>

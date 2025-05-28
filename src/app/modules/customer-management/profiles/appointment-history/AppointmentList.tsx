@@ -16,19 +16,19 @@ const AppointmentList:FC<Props> = ({appointments}) => {
     const openModal = (id: ID) =>{
         setOpenModalId(id)
     }
-
+    console.log(openModalId)
     return (
         <>
-            {appointments && appointments.map((appointment, index) => {
-                return (
-                    <div className="card mb-5 mb-xl-8" id="kt_customer_view_appointment_tab" key={index}>
-                        <div className="card-body p-9">
-                            <AppointmentItem key={index} appointment={appointment} openModal={() => {openModal(appointment.id)}}/>
+                {appointments && appointments.map((appointment, index) => {
+                    return (
+                        <div className="card mb-5 mb-xl-8" id="kt_customer_view_appointment_tab">
+                            <div className="card-body p-9">
+                                <AppointmentItem key={index} appointment={appointment} openModal={ () => {openModal(appointment.id)}}/>
+                            </div>
                         </div>
-                    </div>
-                )
-            })}
-            {openModalId !== undefined && <HealthConditionModal id={openModalId} setFunction={closeModal}/>}
+                    )
+                })}
+                {openModalId !== undefined && <HealthConditionModal id={openModalId} setFunction={closeModal}/>}
         </>
     )
 }

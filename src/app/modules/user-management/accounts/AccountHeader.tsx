@@ -10,7 +10,7 @@ const AccountHeader: React.FC = () => {
   const location = useLocation()
   const {response: user} = useAccountDetail()
   const [profileCompletion, setProfileCompletion] = useState(0)
-  const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
+  const blankImg = toAbsoluteUrl('/media/avatars/blank.svg')
 
   useEffect(() => {
     const totalField = 10
@@ -133,6 +133,7 @@ const AccountHeader: React.FC = () => {
                 Тохиргоо
               </Link>
             </li>
+
           </ul>
         </div>
       </div>

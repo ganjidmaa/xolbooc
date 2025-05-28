@@ -16,6 +16,7 @@ import {QUERIES, WithChildren} from '../../../../_metronic/helpers'
 import { NotifyError } from '../../../../_metronic/helpers/notify/NotifyError'
 import { useQuery } from 'react-query'
 import { Settings } from '../../settings/core/_models'
+import { boolean } from 'yup'
 
 type AuthContextProps = {
   auth: AuthModel | undefined
