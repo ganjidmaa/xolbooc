@@ -1,0 +1,142 @@
+// Variables
+
+$welcome-font-18: 18px;
+$welcome-font-14: 14px;
+$welcome-slider-h-xl: 600px;
+$welcome-slider-h-md: 480px;
+$welcome-slider-h-base: 300px;
+
+.welcome *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.welcome .default-width {
+    max-width: 1340px;
+    width: calc(100vw - 32px);
+    margin: auto;
+}
+
+.welcome {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.welcome-body {
+    flex-grow: 1;
+    &>div{
+        margin-bottom: 50px;
+    }
+}
+
+.onlinebooking-header {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.033);
+}
+
+.booking-body-body {
+    padding-block: 40px;
+}
+
+.welcome-header {
+    height: 80px;
+}
+.welcome-footer {
+    height: 80px;
+    background-color: rgb(52, 52, 52);
+    color: white;
+}
+
+.welcome-hero {
+    height: $welcome-slider-h-xl;
+}
+
+.welcome-hero>div,
+.welcome-hero>div>div,
+.welcome-hero>div>div>div,
+.welcome-hero>div>div>div>ul
+ {
+    height: 100%;
+}
+
+.welcome-hero>div>div>div{
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.welcome-hero>div>div>div>ul{
+    transition: all 0.6s !important;
+}
+
+.welcome-hero .carousel .control-dots .dot{
+    background: #fff !important;
+}
+
+.welcome-hero .carousel .control-next.control-arrow::before,
+.welcome-hero .carousel .control-prev.control-arrow::before{
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+.welcome-hero .carousel .control-next.control-arrow::before{
+  border-left: 8px solid #fff;
+}
+.welcome-hero .carousel .control-prev.control-arrow::before{
+  border-right: 8px solid #fff;
+}
+
+.welcome-img {
+    width: 100%;
+    height: $welcome-slider-h-xl;
+}
+
+.hoverEffectOnText:hover {
+    background-color: #eee;
+}
+
+// ANIMATIONS------
+.fadeOutWel {
+	display: grid;
+	grid-template-rows: 0fr;
+	transition: grid-template-rows 400ms;
+}
+
+.fadeInWel {
+	display: grid;
+	grid-template-rows: 1fr;
+	transition: grid-template-rows 400ms;
+}
+.fadeInUp {
+    opacity: 0; transform: translateY(20px);
+    animation: fade-in-up 0.5s ease forwards;
+}
+
+@keyframes fade-in-up {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+
+
+
+@include media-breakpoint-down(xl) {
+    .welcome-hero {
+        height: $welcome-slider-h-md;
+    }
+    .welcome-img {
+        width: 100%;
+        height: $welcome-slider-h-md;
+    }
+}
+
+@include media-breakpoint-down(md) {
+        .welcome-hero {
+        height: $welcome-slider-h-base;
+    }
+    .welcome-img {
+        width: 100%;
+        height: $welcome-slider-h-base;
+    }
+}
+
+

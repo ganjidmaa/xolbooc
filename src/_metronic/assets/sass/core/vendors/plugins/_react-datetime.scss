@@ -1,0 +1,178 @@
+$flatpickr-padding-y: 0.5rem;
+$flatpickr-padding-x: 1rem;
+$flatpickr-width: 280px;
+$flatpickr-time-width: 140px;
+$flatpickr-width-week-numbers: 325px;
+$flatpickr-day-height: 36px;
+$flatpickr-day-width: 100%;
+$flatpickr-time-height: 46px;
+
+.rdtPicker {
+  left: 1px!important;
+  position: absolute!important;
+  padding: 4px!important;
+  margin-top: 1px!important;
+  z-index: 99999 !important;
+  background: #fff!important;
+  font-family: inherit!important;
+  border: 0!important;
+  box-shadow: $dropdown-box-shadow!important;
+  background-color: $body-bg!important;
+  @include border-radius($dropdown-border-radius);
+  touch-action: manipulation;
+  padding: 0px!important;
+  width: $flatpickr-width !important;
+  font-size: 1rem;
+  color: $gray-700;
+  // Remow arrows
+  &:before,
+  &:after {
+      display: none;
+  }
+  // &:has(div, .rdtTime){
+  //   width: $flatpickr-time-width !important;
+  // }
+}
+
+.rdtPicker .rdtTime {
+  padding: 0 1rem!important;
+  width: $flatpickr-time-width !important;
+}
+
+/* added */
+.rdtPicker .rdtDays,
+.rdtPicker .rdtMonths,
+.rdtPicker .rdtYears {
+  padding: 0.5rem 1rem!important;
+}
+
+.rdtPicker td {
+  cursor: pointer!important;
+  font-size: 1rem!important;
+  @include border-radius($border-radius);
+  height: $flatpickr-day-height!important;
+  box-shadow: none !important;
+  max-width: 100% !important;
+  margin: 0!important;
+  color: $gray-600!important;
+  margin-top: 0 !important;
+  /* line-height: 36px; */
+  background: none!important;
+  border: 1px solid transparent!important;
+  box-sizing: border-box!important;
+  font-weight: 400!important;
+}
+.rdtPicker td.rdtDay:hover,
+.rdtPicker td.rdtHour:hover,
+.rdtPicker td.rdtMinute:hover,
+.rdtPicker td.rdtSecond:hover,
+.rdtPicker .rdtTimeToggle:hover {
+  cursor: pointer!important;
+  outline: 0!important;
+  background: $component-hover-bg!important;
+  color: $component-hover-color!important;
+  border-color: transparent!important;
+}
+.rdtPicker td.rdtOld,
+.rdtPicker td.rdtNew {
+  color: $gray-400!important;
+  background: transparent!important;
+  border-color: transparent!important;
+}
+.rdtPicker td.rdtToday:before {
+  content: none!important;
+  display: none!important;
+  border-left: none!important;
+  border-bottom: none!important;
+  border-top-color: none!important;
+  position: none!important;
+  bottom: none!important;
+  right: none!important;
+} 
+.rdtPicker td.rdtToday {
+  border-color: transparent!important;
+  background: $gray-200!important;
+  color: $gray-700!important;
+}
+.rdtPicker td.rdtActive,
+.rdtPicker td.rdtActive:hover {
+  background-color: $component-active-bg!important;
+  color: $component-active-color!important;
+  border-color: transparent!important;
+}
+
+.rdtPicker td.rdtActive.rdtToday:before {
+  border-bottom-color: none!important;
+} 
+
+.rdtPicker td.rdtDisabled,
+.rdtPicker td.rdtDisabled:hover {
+  background: none!important;
+  color: $gray-400!important;
+  cursor: not-allowed!important;
+}
+
+.rdtPicker td span.rdtOld {
+  color: $gray-400!important;
+}
+
+.rdtPicker td span.rdtDisabled,
+.rdtPicker td span.rdtDisabled:hover {
+  background: none!important;
+  color: $gray-400!important;
+  cursor: not-allowed!important;
+}
+.rdtPicker th.rdtSwitch {
+  width: 44px!important;
+}
+.rdtPicker .rdtYears th.rdtSwitch {
+  width: 170px!important;
+}
+
+.rdtPicker th.rdtNext,
+.rdtPicker th.rdtPrev {
+  font-size: 21px!important;
+  vertical-align: top!important;
+  display: flex!important;
+  align-items: center!important;
+  justify-content: center!important;
+}
+
+.rdtPicker th.rdtDisabled,
+.rdtPicker th.rdtDisabled:hover {
+  background: none!important;
+  color: $gray-400!important;
+  cursor: not-allowed!important;
+}
+
+.rdtPicker thead tr:first-of-type th {
+  cursor: pointer!important;
+  @include border-radius($border-radius);
+}
+
+.rdtPicker thead tr:first-of-type th:hover {
+  background: $gray-100!important;
+}
+
+.rdtCounter .rdtBtn:hover {
+  background: $gray-100!important;
+  @include border-radius($border-radius);
+}
+
+td.rdtMonth,
+td.rdtYear {
+  height: 50px!important;
+  width: 25%;
+  cursor: pointer;
+}
+td.rdtMonth:hover,
+td.rdtYear:hover {
+  background: $component-hover-bg!important;
+  color: $component-hover-color!important;
+  border-color: transparent!important;
+}
+
+.rdtPicker .rdtTime .rdtSwitch {
+  border-bottom: 1px solid #f9f9f9 !important;
+  font-weight: 600;
+}
