@@ -22,17 +22,17 @@ const detailColumns: ReadonlyArray<Column<Event>> = [
     Cell: ({...props}) => <InfoCell data={props.data[props.row.index].duration} />,
   },
   {
-    Header: (props) => <DetailHeader tableProps={props} title='Гоо сайханч' className='min-w-175px' />,
+    Header: (props) => <DetailHeader tableProps={props} title='Эмч' className='min-w-175px' />,
     id: 'username',
     Cell: ({...props}) => <InfoCell data={props.data[props.row.index].username} />,
   },
   {
-    Header: (props) => <DetailHeader tableProps={props} title='Үйлчлүүлэгч' className='min-w-125px' />,
+    Header: (props) => <DetailHeader tableProps={props} title='Эмчлүүлэгч' className='min-w-125px' />,
     id: 'customer_name',
     Cell: ({...props}) => <InfoCell data={props.data[props.row.index].customer_name} />,
   },
   {
-    Header: (props) => <DetailHeader tableProps={props} title='Үйлчилгээ' className='min-w-100px' />,
+    Header: (props) => <DetailHeader tableProps={props} title='Эмчилгээ' className='min-w-100px' />,
     id: 'event_number',
     Cell: ({...props}) => <InfoCell data={props.data[props.row.index].event_number} />,
   },

@@ -9,7 +9,8 @@ const CalendarViewProvider: FC<WithChildren> = ({children}) => {
     const [eventStartDate, setEventStartDate] = useState(initialCalendarView.eventStartDate)
     const [eventUserId, setEventUserId] = useState(initialCalendarView.eventUserId)
     const [activeTab, setActiveTab] = useState<ID>(0)
-    
+    const [healthCondition, setHealthCondition] = useState(initialCalendarView.healthCondition)
+
     return (
         <CalendarViewContext.Provider 
             value={{
@@ -21,6 +22,8 @@ const CalendarViewProvider: FC<WithChildren> = ({children}) => {
                 setEventUserId,
                 activeTab,
                 setActiveTab,
+                healthCondition,
+                setHealthCondition
             }}
         >
             {children}

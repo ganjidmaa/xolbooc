@@ -18,15 +18,7 @@ function ImageSwiper() {
     >
       {onlineBookingSettings?.image_url?.map((image, index) => (
         <div key={index}>
-          <div
-            style={{
-              backgroundImage: `url("${image}")`,
-              backgroundSize: 'contain',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-            }}
-            className='welcome-img'
-          />
+          <img src={image} alt='image' className='welcome-img' />
         </div>
       ))}
     </Carousel>

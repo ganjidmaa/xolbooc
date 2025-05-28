@@ -27,7 +27,7 @@ const Dropdown: FC = () => {
 
       <div className='menu-item px-3'>
         <a href='#' className='menu-link px-3 text-gray-700' onClick={openEditModal}>
-          Үйлчилгээ үүсгэх
+        Онош үүсгэх
         </a>
       </div>
 

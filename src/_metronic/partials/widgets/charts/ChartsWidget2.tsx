@@ -4,6 +4,7 @@ import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSS, getCSSVariableValue} from '../../../assets/ts/_utils'
 import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 import { UserAppointment } from '../../../../app/pages/dashboard/core/_models'
+import { KTSVG } from '../../../helpers'
 
 type Props = {
   className: string
@@ -68,6 +69,7 @@ const ChartsWidget2: React.FC<Props> = ({className, dataProp}) => {
 export {ChartsWidget2}
 
 function getChartOptions(height: number, dataProp: UserAppointment): ApexOptions {
+  const labelColor = getCSSVariableValue('--kt-gray-500')
   const borderColor = getCSSVariableValue('--kt-gray-200')
 
   const baseColor = '#1bf803' 

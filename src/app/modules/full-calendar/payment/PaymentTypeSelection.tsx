@@ -3,6 +3,7 @@ import { paymentMethodColors, paymentMethodIcons } from "../../../../_metronic/h
 import clsx from "clsx"
 import { PaymentMethodSelecitonModal } from "./payment-method-selection-modal/PaymentMethodModal"
 import { PaymentMethod, useAuth } from "../../auth"
+import { useCalendarView } from "../core/CalendarViewProvider"
 
 type Props = {
     openPaymentModal: (type: string) => void

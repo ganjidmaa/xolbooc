@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
 import { ID } from "../../../../_metronic/helpers"
 import { OnlineBookingSettings } from "../../online-booking-settings/core/_models"
+import { string } from "yup"
 
 export type Event = {
     id?: ID
@@ -27,7 +28,7 @@ export type BusinessDays = {
 export type OnlineCustomer = {
     lastname?: string
     firstname?: string
-    email?: string
+    registerno?: string
     phone?: string
     phone2?: string
     desc?: string
@@ -43,19 +44,6 @@ export type Service = {
     allow_resources?: boolean
     type?: ID
     resources?: Array<ServiceResource>
-}
-
-export type BranchForService = {
-    id?: ID,
-    name?: string
-}
-
-export type ServiceCard = {
-    id?: ID
-    name?: string
-    duration?: string
-    price?: string
-    branch_names?: Array<BranchForService>
 }
 
 export type ServiceResource = {
@@ -99,8 +87,6 @@ export type MasterData = {
     branches: Array<Branch>
     bookingSettings: OnlineBookingSettings
     types: Array<Type>
-    popularServices: Array<ServiceCard>
-    comments: Array<Comment>
 }
 
 export type Item = {
@@ -116,8 +102,6 @@ export type Item = {
 }
 
 export type AvailableHours = Array<Hour>
-
-export type AvailableDays = Array<Day>
 
 export type AvailableHoursByUsers = {
     event_date: string
@@ -136,18 +120,8 @@ export type QueryState = {
     search: string
 }
 
-export type Comment = {
-    id: ID
-    title: string
-    body: string
-    stars: number
-}
-
-
 export type CalendarDataContextProps = {
     serviceCategories: Array<ServiceCategory>
-    serviceCard: Array<ServiceCard>
-    comments: Array<Comment>
     setServiceCategories: Dispatch<SetStateAction<Array<ServiceCategory>>>
     setBusinessDays: Dispatch<SetStateAction<string>>
     users: Array<User>
@@ -181,9 +155,7 @@ export const initialCalendarData: CalendarDataContextProps = {
     businessDays: '',
     types: [],
     setTypes: () => {},
-    setBusinessDays: () => {},
-    serviceCard: [],
-    comments: []
+    setBusinessDays: () => {}
 }
 
 export const initialCalendarItem: CalendarItemContextProps = {
@@ -221,9 +193,4 @@ export type Branch = {
 }
 export type Hour = {
     head_time: string
-}
-
-export type Day = {
-    date: string
-    enabled: boolean
 }

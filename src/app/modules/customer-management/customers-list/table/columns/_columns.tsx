@@ -26,14 +26,14 @@ const customersColumns: ReadonlyArray<Column<Customer>> = [
       <CustomerCustomHeader tableProps={props} title='Регистр' className='min-w-125px' />
     ),
     id: 'registerno',
-    Cell: ({...props}) => <InfoCell data={props.data[props.row.index].view_public ? props.data[props.row.index].registerno : ''} />,
+    Cell: ({...props}) => <InfoCell data={props.data[props.row.index].registerno} />,
   },
   {
     Header: (props) => (
       <CustomerCustomHeader tableProps={props} title='Утас' className='min-w-125px' />
     ),
     id: 'phone',
-    Cell: ({...props}) => <InfoCell data={props.data[props.row.index].view_public ? props.data[props.row.index].phone + ', ' + props.data[props.row.index].phone2 : ''} />,
+    Cell: ({...props}) => <InfoCell data={props.data[props.row.index].phone + ', ' + props.data[props.row.index].phone2} />,
   },
   {
     Header: (props) => (

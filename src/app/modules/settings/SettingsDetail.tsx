@@ -1,5 +1,7 @@
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
+import Datetime from 'react-datetime'
+import Moment from 'moment'
 import {
   CRUD_RESPONSES,
   DropzoneComponent,
@@ -16,7 +18,6 @@ import {ErrorAlert} from '../../../_metronic/helpers/alerts/Error'
 import {useAuth} from '../auth'
 import {PaymentMethods} from './PaymentMethods'
 import clsx from 'clsx'
-import { TimeCalendar } from './TimeCalendar'
 
 const settingsSchema = Yup.object().shape({
   company_name: Yup.string().required('Байгууллагын нэр оруулна уу'),
@@ -68,8 +69,6 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
     slot_duration: settings.slot_duration || '30',
     start_time: settings.start_time || '',
     end_time: settings.end_time || '',
-    lunch_start_time: settings.lunch_start_time || '',
-    lunch_end_time: settings.lunch_end_time || '',
     file: settings.file || {},
     business_days: settings.business_days || '12345',
     sms_send: settings.sms_send || 0,
@@ -77,7 +76,6 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
     insta_url: settings.insta_url || '',
   })
   const [paymentMethods, setPaymentMethods] = useState<Array<PaymentMethod>>([])
-  const [checkedDays, setCheckedDays] = useState(data.business_days as string)
 
   const formik = useFormik({
     initialValues: data,
@@ -108,6 +106,11 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
     formik.setFieldValue(field, option.target.value)
   }
 
+  const handleOnChangeTime = (field: string, value: any) => {
+    value = Moment(value).format('HH:mm')
+    formik.setFieldValue(field, value)
+  }
+
   const setFile = (field: string, value: any) => {
     ConvertFileToBase64(value[0]).then((response) => {
       formik.setFieldValue(field, response)
@@ -117,7 +120,48 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
   const updatePaymentMethods = (methods: Array<PaymentMethod>) => {
     setPaymentMethods(methods)
   }
-  
+  const weekDays = [
+    {
+      name: 'Даваа',
+      value: '1',
+    },
+    {
+      name: 'Мягмар',
+      value: '2',
+    },
+    {
+      name: 'Лхагва',
+      value: '3',
+    },
+    {
+      name: 'Пүрэв',
+      value: '4',
+    },
+    {
+      name: 'Баасан',
+      value: '5',
+    },
+    {
+      name: 'Бямба',
+      value: '6',
+    },
+    {
+      name: 'Ням',
+      value: '0',
+    },
+  ]
+
+  const [checkedDays, changeCheckedDays] = useState(formik.values.business_days as string)
+
+  const handleWeekdayChange = (value: string) => {
+    var updatedWeekdayState = ''
+    if (checkedDays.includes(value)) {
+      updatedWeekdayState = checkedDays.replace(value, '')
+    } else {
+      updatedWeekdayState = checkedDays + value
+    }
+    changeCheckedDays(updatedWeekdayState)
+  }
 
   return (
     <div className='d-flex flex-column flex-lg-row'>
@@ -201,6 +245,34 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
               </div>
 
               <div className='row mb-6'>
+                <div className='col-xl-3'>
+                  <div className='fs-6 fw-bold mt-2 mb-3 required'>Ажлын цаг</div>
+                </div>
+                <div className='col-6 col-xl-4 fv-row'>
+                  <Datetime
+                    className='timePicker'
+                    dateFormat={false}
+                    timeFormat='HH:mm'
+                    {...formik.getFieldProps('start_time')}
+                    onChange={(val) => {
+                      handleOnChangeTime('start_time', val)
+                    }}
+                  />
+                </div>
+                <div className='col-6 col-xl-4 fv-row'>
+                  <Datetime
+                    className='timePicker'
+                    dateFormat={false}
+                    timeFormat='HH:mm'
+                    {...formik.getFieldProps('end_time')}
+                    onChange={(val) => {
+                      handleOnChangeTime('end_time', val)
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className='row mb-6'>
                 <label className='col-lg-4 col-xl-3 col-form-label fw-bold fs-6'>
                   Салбартай эсэх
                 </label>
@@ -217,12 +289,37 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
                   </div>
                 </div>
               </div>
-              
+              {!formik.values.has_branch && (
+                <div className='row mb-6'>
+                  <div className='col-xl-3'>
+                    <div className='fs-6 fw-bold mt-2 mb-3 required'>Ажиллах өдрүүд</div>
+                  </div>
+                  <div className='col-xl-8 fv-row'>
+                    {weekDays.map(({name, value}, index) => {
+                      return (
+                        <div className='form-check form-check-inline' key={index}>
+                          <input
+                            className='form-check-input'
+                            type='checkbox'
+                            id={`business-days-${index}`}
+                            checked={checkedDays.includes(value)}
+                            onChange={() => handleWeekdayChange(value)}
+                            value={value}
+                          />
+                          <label className='form-check-label' htmlFor='business_days'>
+                            {name}
+                          </label>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
 
               <div className='row mb-6'>
                 <div className='col-xl-3'>
                   <div className='fs-6 fw-bold mt-2 mb-3 required'>
-                    Ажилтанд захиалгын имэйл
+                    Ажилтанд цаг захиалгын имэйл илгээх
                   </div>
                 </div>
 
@@ -256,14 +353,6 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
                     <option value='20'>20 мин</option>
                     <option value='30'>30 мин</option>
                     <option value='60'>60 мин</option>
-                    <option value='80'>80 мин</option>
-                    <option value='100'>100 мин</option>
-                    <option value='120'>120 мин</option>
-                    <option value='140'>140 мин</option>
-                    <option value='160'>160 мин</option>
-                    <option value='180'>180 мин</option>
-                    <option value='200'>200 мин</option>
-                    <option value='240'>240 мин</option>
                   </select>
                 </div>
               </div>
@@ -280,16 +369,11 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
                       handleOnChange('default_duration', opt)
                     }}
                   >
+                    <option value='20'>20 мин</option>
                     <option value='30'>30 мин</option>
                     <option value='40'>40 мин</option>
                     <option value='60'>60 мин</option>
                     <option value='80'>80 мин</option>
-                    <option value='100'>100 мин</option>
-                    <option value='120'>120 мин</option>
-                    <option value='160'>160 мин</option>
-                    <option value='180'>180 мин</option>
-                    <option value='200'>200 мин</option>
-                    <option value='240'>240 мин</option>
                   </select>
                 </div>
               </div>
@@ -314,7 +398,7 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
               
               <div className='row mb-6'>
                 <div className='col-xl-3'>
-                  <div className='fs-6 fw-bold mt-2 mb-3 '>Фэйсбүүк хаяг /link/ </div>
+                  <div className='fs-6 fw-bold mt-2 mb-3 '>Фэйсбүүк хаягын холбоос /link/ </div>
                 </div>
                 <div className='col-xl-8 fv-row'>
                   <input type='text' className='form-control' {...formik.getFieldProps('fb_url')} />
@@ -323,7 +407,7 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
 
               <div className='row mb-6'>
                 <div className='col-xl-3'>
-                  <div className='fs-6 fw-bold mt-2 mb-3'>Инстаграм хаяг /link/ </div>
+                  <div className='fs-6 fw-bold mt-2 mb-3'>Инстаграм хаягын холбоос /link/ </div>
                 </div>
                 <div className='col-xl-8 fv-row'>
                   <input
@@ -375,9 +459,8 @@ export const SettingsDetail: FC<Props> = ({settings}) => {
           </form>
         </div>
       </div>
-      <div className='d-flex flex-column flex-row-fluid gap-5'>
+      <div className='d-flex flex-column flex-row-fluid gap-7 gap-lg-10'>
         <PaymentMethods updatePaymentMethods={updatePaymentMethods} />
-        <TimeCalendar formik={formik} checkedDays={checkedDays} setCheckedDays={setCheckedDays}/>
       </div>
     </div>
   )

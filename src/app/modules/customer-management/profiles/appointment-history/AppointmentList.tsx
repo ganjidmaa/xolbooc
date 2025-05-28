@@ -1,23 +1,35 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { AppointmentHistory } from "../../core/_models"
 import AppointmentItem from "./AppointmentItem"
+import { HealthConditionModal } from "../../../full-calendar/event-edit/health-condition-modal/HealthConditionModal"
+import { ID } from "../../../../../_metronic/helpers"
 
 type Props = {
     appointments: Array<AppointmentHistory>
 }
 
 const AppointmentList:FC<Props> = ({appointments}) => {
+    const [openModalId, setOpenModalId] = useState <ID>(undefined)
+    const closeModal = () => {
+        setOpenModalId(undefined)
+    }
+    const openModal = (id: ID) =>{
+        setOpenModalId(id)
+    }
 
     return (
-        <div className="card mb-5 mb-xl-8" id="kt_customer_view_appointment_tab">
-            <div className="card-body p-9">
-                {appointments && appointments.map((appointment, index) => {
-                    return (
-                        <AppointmentItem key={index} appointment={appointment}/>
-                    )
-                })}
-            </div>
-        </div>
+        <>
+            {appointments && appointments.map((appointment, index) => {
+                return (
+                    <div className="card mb-5 mb-xl-8" id="kt_customer_view_appointment_tab" key={index}>
+                        <div className="card-body p-9">
+                            <AppointmentItem key={index} appointment={appointment} openModal={() => {openModal(appointment.id)}}/>
+                        </div>
+                    </div>
+                )
+            })}
+            {openModalId !== undefined && <HealthConditionModal id={openModalId} setFunction={closeModal}/>}
+        </>
     )
 }
 

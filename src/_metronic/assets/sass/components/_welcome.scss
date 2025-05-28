@@ -2,141 +2,507 @@
 
 $welcome-font-18: 18px;
 $welcome-font-14: 14px;
-$welcome-slider-h-xl: 600px;
-$welcome-slider-h-md: 480px;
-$welcome-slider-h-base: 300px;
 
-.welcome *{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+.welcome-top{
+    height: 70%;
+    background-color: #ffe8d1;
+    position: relative;
+}
+.welcome-order{
+    width: 40%;
 }
 
-.welcome .default-width {
-    max-width: 1340px;
-    width: calc(100vw - 32px);
-    margin: auto;
+.welcome-company-name {
+    font-size: 40px;
+    font-weight: 700;
 }
 
-.welcome {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+.welcome-company-address {
+    font-size: $welcome-font-14;
+    padding-bottom: 20px;
 }
-
-.welcome-body {
-    flex-grow: 1;
-    &>div{
-        margin-bottom: 50px;
-    }
+.welcome-swiper-container {
+    width: 65%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    // height: 100%;
 }
-
-.onlinebooking-header {
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.033);
-}
-
-.booking-body-body {
-    padding-block: 40px;
-}
-
-.welcome-header {
-    height: 80px;
-}
-.welcome-footer {
-    height: 80px;
-    background-color: rgb(52, 52, 52);
-    color: white;
-}
-
-.welcome-hero {
-    height: $welcome-slider-h-xl;
-}
-
-.welcome-hero>div,
-.welcome-hero>div>div,
-.welcome-hero>div>div>div,
-.welcome-hero>div>div>div>ul
+.welcome-swiper-container>div,
+.welcome-swiper-container>div>div,
+.welcome-swiper-container>div>div>div,
+.welcome-swiper-container>div>div>div>ul
  {
     height: 100%;
 }
 
-.welcome-hero>div>div>div{
+.welcome-swiper-container>div>div>div{
     border-radius: 10px;
     overflow: hidden;
 }
 
-.welcome-hero>div>div>div>ul{
+.welcome-swiper-container>div>div>div>ul{
     transition: all 0.6s !important;
 }
 
-.welcome-hero .carousel .control-dots .dot{
-    background: #fff !important;
+.welcome-swiper-container .carousel .control-dots .dot{
+    background: blue !important;
 }
 
-.welcome-hero .carousel .control-next.control-arrow::before,
-.welcome-hero .carousel .control-prev.control-arrow::before{
+.welcome-swiper-container .carousel .control-next.control-arrow::before,
+.welcome-swiper-container .carousel .control-prev.control-arrow::before{
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
 }
-.welcome-hero .carousel .control-next.control-arrow::before{
-  border-left: 8px solid #fff;
+.welcome-swiper-container .carousel .control-next.control-arrow::before{
+  border-left: 8px solid #00f;
 }
-.welcome-hero .carousel .control-prev.control-arrow::before{
-  border-right: 8px solid #fff;
+.welcome-swiper-container .carousel .control-prev.control-arrow::before{
+  border-right: 8px solid #00f;
 }
-
-.welcome-img {
+.welcome-img{
+  width: 100%;
+  height: 100%;
+  // min-height: 600px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.welcome-company-img{
+    height: 470px;
     width: 100%;
-    height: $welcome-slider-h-xl;
+    background-position: center;
+    margin-right: 5%;
 }
 
-.hoverEffectOnText:hover {
-    background-color: #eee;
+.welcome-booking-btn{
+    background-color: #36d3d3;
+    padding: 10px;
+    color: white;
+    border-radius: 20px;
+    font-size: $welcome-font-18;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
 }
 
-// ANIMATIONS------
-.fadeOutWel {
-	display: grid;
-	grid-template-rows: 0fr;
-	transition: grid-template-rows 400ms;
+.welcome-about{
+    background-color: #ffecda;
+    justify-content: space-around;
+}
+.welcome-about-us{
+    font-size: $welcome-font-18;
+    display: inline-block;
+    position: relative;
+}
+.welcome-about-us-content{
+    font-size: $welcome-font-14;
+    color: #222222;
 }
 
-.fadeInWel {
-	display: grid;
-	grid-template-rows: 1fr;
-	transition: grid-template-rows 400ms;
-}
-.fadeInUp {
-    opacity: 0; transform: translateY(20px);
-    animation: fade-in-up 0.5s ease forwards;
+.welcome-shape{
+    height: 1px;
+    margin: 0 auto 20px;
+    position: relative;
+    width: 60px;
+    background-color: #36d3d3;
 }
 
-@keyframes fade-in-up {
-    from {opacity: 0; transform: translateY(20px);}
-    to {opacity: 1; transform: translateY(0);}
+.welcome-about-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.welcome-contact{
+    display: flex;
+    justify-content: space-around;
+    padding: 45px;
+    width: 85%;
+    margin: 0 auto;
+}
+#schedule, #contact {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    min-height: inherit;
+}
+.section-pd {
+    padding: 15px 40px;
+}
+#contacts ul{
+    padding: 0;
+}
+#contacts li {
+    margin-bottom: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-
-
+#contacts li .icon {
+    font-size: 16px;
+    float: left;
+    width: 15px;
+}
+#contacts li .links {
+    font-size: 16px;
+    padding-left: 10px;
+    overflow: hidden;
+}
 
 @include media-breakpoint-down(xl) {
-    .welcome-hero {
-        height: $welcome-slider-h-md;
-    }
-    .welcome-img {
+    .welcome-order{
         width: 100%;
-        height: $welcome-slider-h-md;
+    }
+
+    .welcome-contact{
+        display: block;
+    }
+    .welcome-company-img{
+        height: 400px;
+        width: 100%;
+        margin-left: 25px;
+    }
+}
+  
+ .welcome .wave{
+    position: absolute;
+    left: 0;
+    bottom: -65px;
+    width: 100%;
+ }
+
+ .welcome .box {
+    // 46, 38, 52
+    --size: 42px;
+    --p: 42px;
+    --R: 59.9px /*sqrt(var(--size)*var(--size) + var(--p)*var(--p))*/;
+    
+    height: 72px;
+    // margin: 10px 0;
+    
+    // --size: 48px;
+    // --p: 50px;
+    // --R: 59.9px /*sqrt(var(--size)*var(--size) + var(--p)*var(--p))*/;
+    
+    // height: 72px;
+
+    -webkit-mask:
+      radial-gradient(var(--R) at left 50% var(--d,top) calc(var(--size) + var(--p)),#000 99%,#0000 101%) 
+        calc(50% - 2*var(--size)) 0/calc(4*var(--size)) 100%,
+      radial-gradient(var(--R) at left 50% var(--d,top) calc(-1*var(--p)),#0000 99%,#000 101%) 
+        left 50% var(--d,top) var(--size)/calc(4*var(--size)) 100% repeat-x;
+        // fd8e8c
+        // fdd7b5
+    background:linear-gradient(90deg, #fdd7b5, #ffe8d1);  
+    border: none;
+  }
+  
+  .welcome .box + .box {
+    --d: bottom;
+  }
+  .wrapper2 {
+    height: 100%;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    border: 1px solid;
+    border-radius: 15px;
+    border-color: #d3d3d3;
+  //   align-items: center;
+    box-shadow: 0 0 12px #f4f4f4;
+    overflow: auto;
+  }
+@include media-breakpoint-down(md) {
+    .welcome-img{
+        min-height: 300px;
+        // height: 300px;
+        background-size: cover;
+        margin-inline: auto;
+    }
+    .welcome-booking-btn{
+        max-width: 100%;
+    }
+    .box {
+        --size: 42px;
+        --p: 42px;
+        --R: 50px /*sqrt(var(--size)*var(--size) + var(--p)*var(--p))*/;
+        
+        height: 62px;
+    }
+    .welcome-company-img{
+        height: 290px;
+        background-position: center;
+        margin-left: 10%;
+        width: 75%;
+    }
+    .welcome-swiper-container {
+        width: 100%;
+        // height: 300px;
+    }
+      .wrapper2 {
+        width: 100%;
+        overflow: hidden;
+        padding: 4px;
     }
 }
 
-@include media-breakpoint-down(md) {
-        .welcome-hero {
-        height: $welcome-slider-h-base;
-    }
-    .welcome-img {
-        width: 100%;
-        height: $welcome-slider-h-base;
-    }
+.custom-menu-hover{
+    &:hover{
+        .custom-menu-text{
+            color: var(--kt-text-primary) !important;
+        }
+    }   
+}
+ 
+// style2
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+.body-div {
+  justify-content: center;
+  align-items: center;
+  background: white;
+  font-size: larger;
+}
+#mainContainer {
+  margin: 0px;
+  padding: 0px;
+  color: #2097b7;
+  position: relative;
+  max-width: 1110px;
+  min-height: calc(100vh - 170px);
+  // max-width: clamp(0px, 90%, 1110px);
+  display: flex;
+  flex-direction: column;
+}
+.top {
+  width: 70%;
+  height: auto;
+  // min-height: 700px;
+  max-height: clamp(600px, 100%, 14500px);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 15px;
+  margin-top: 13px;
+  margin-bottom: 25px;
+  box-shadow: 0 0 12px #f4f4f4;
+}
+.company_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  background: #f9f9f9;
+  color: #333;
+}
+.header h3 {
+  margin: 0px;
+  border-radius: 15px;
+}
+#company_name {
+  position: relative;
+  font-size: clamp(10px, 3.5vw, 42px);
+  font-weight: bolder;
+  margin: 20px 20px 20px 0px;
+}
+.header span {
+  position: relative;
+  font-weight: 100;
+  font-style: italic;
+  color: #2097b7;
+}
+#logo_moh {
+  height: 30px;
+  width: 30px;
+}
+.wrapper1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  margin: 0px;
+  margin-bottom: 25px;
+  border: 1px solid;
+  border-radius: 15px;
+  border-color: #d3d3d3;
+  box-shadow: 0 0 12px #f4f4f4;
+}
+
+.topSide {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.welcome-btn-color{
+    background-color: #2097b7 !important;
+}
+#branches-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 0px;
+  padding-inline: 20px;
+  flex-direction: column;
+}
+.logo_img{
+    height: 200px;
+    width: 200px;
+}
+.mini {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 16px;
+}
+.wrapper1 span {
+  padding: 10px;
+}
+i {
+  color: #2097b7;
+  padding-right: 10px;
+  font-size: 18px;
+}
+.mini a {
+  text-decoration: none;
+  color: inherit;
+}
+#branchName {
+  font-weight: bold;
+  font-size: 24px;
+}
+#about_us_title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 10px;
+  color:#2097b7;
+}
+#btn2 {
+  display: none;
+}
+.content {
+  display: contents;
+}
+#btn:hover {
+  background-color: #184662;
+}
+.branch {
+  margin-bottom: 20px;
+}
+.footer-div {
+  width: 100%;
+  /* background: #222; */
+  background: #184662;
+  color: white;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  display: relative;
+}
+.footer span {
+  float: right;
+}
+#about {
+  inline-size: 55%;
+  overflow-wrap: break-word;
+}
+.alert-success {
+  color: white;
+  background-color: #28a82e;
+  border-radius: 10px;
+  border: none;
+  opacity: 1;
+}
+.header_inside {
+  display: flex;
+  justify-content: space-between;
+  width: clamp(0px, 90%, 1110px);
+  align-items: center;
+}
+.logo_wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.footer_inside-div {
+  display: flex;
+  justify-content: space-between;
+  width: clamp(0px, 90%, 1110px);
+  align-items: center;
+}
+
+@media (max-width: 920px) {
+  .top {
+    width: 100%;
+    height: 70vw;
+    margin-bottom: 0px;
+  }
+  .topSide {
+    display: flex;
+    flex-direction: column;
+  }
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0px;
+  }
+  #btn1 {
+    width: 40%;
+    font-size: 14px;
+  }
+
+  .footer_inside-div{
+    justify-content: center;
+  }
+  .wrapper1 {
+    width: 100%;
+    margin: 0px;
+  }
+  #company_name {
+    font-size: 24px;
+  }
+  #copyRight {
+    display: none;
+  }
+  #about {
+    font-size: inherit;
+    inline-size: 80%;
+    line-height: 1.5;
+    text-align: justify;
+  }
+  #btn2 {
+    display: block;
+    width: 70vw;
+    margin: 15px;
+  }
+  #about_us_title {
+    font-size: 18px;
+  }
+  #about_us {
+    font-size: 14px;
+  }
+  #mainContainer {
+    width: 95%;
+  }
+  .footer-div{
+    margin-top: 10px;
+  }
+  .logo_img{
+    height: 120px;
+    width: 120px;
+}
 }
 
 

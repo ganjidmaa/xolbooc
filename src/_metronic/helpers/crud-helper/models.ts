@@ -103,6 +103,10 @@ export type SoumDistrict = {
   value: ID,
   label: string
 }
+export type Gender = {
+  value: ID,
+  label: string
+}
 
 export type GroupSoumDistrict = {
   label: string,

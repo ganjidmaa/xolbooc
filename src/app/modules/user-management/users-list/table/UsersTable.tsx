@@ -5,10 +5,10 @@ import {CustomRow} from '../table/columns/CustomRow'
 import {useQueryResponseData, useQueryResponseLoading} from '../provider/QueryResponseProvider'
 import {usersColumns} from './columns/_columns'
 import {User} from '../../core/_models'
+import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {UsersListPagination} from '../components/pagination/UsersListPagination'
 import {KTCardBody} from '../../../../../_metronic/helpers'
 import { useAuth } from '../../../auth'
-import { Loading } from '../../../../../_metronic/partials/loading/Loading'
 
 const UsersTable = () => {
   const {settings} = useAuth()
@@ -56,7 +56,7 @@ const UsersTable = () => {
         </table>
       </div>
       <UsersListPagination />
-      {isLoading && <Loading />}
+      {isLoading && <UsersListLoading />}
     </KTCardBody>
   )
 }

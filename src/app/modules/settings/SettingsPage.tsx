@@ -19,6 +19,15 @@ const SettingsPage = () => {
     return null
 }
 
+// const SettingsWrapper = () => {
+//     return (
+//     <>
+//         <PageTitle breadcrumbs={[]}>{'Тохиргоо'}</PageTitle>
+//         <SettingsPage />
+//     </>
+//     )
+// }
+
 const SettingsWrapper = () => {
     const location = useLocation()
 

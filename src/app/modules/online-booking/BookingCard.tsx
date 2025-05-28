@@ -7,23 +7,22 @@ type Props = {
   body: any
 }
 
-const BookingCard: FC<Props> = ({title, body, subTitle}) => {
+const BookingCard: FC<Props> = ({
+  title, body, subTitle
+}) => {
   return (
-    <div className='d-flex flex-column flex-row-fluid'>
+    <div className="d-flex flex-column flex-row-fluid">
       <div className='card card-flush'>
         <div className='card-header'>
           <div className='card-title flex-column'>
-            <h3 className='fw-bold mb-1'>{title}</h3>
-            <div className='fs-6 text-gray-400'>{subTitle}</div>
+            <h3 className="fw-bold mb-1">{title}</h3>
+            <div className="fs-6 text-gray-400">{subTitle}</div> 
           </div>
         </div>
 
         <div className='card-body p-9 pt-2'>
-          <div
-            className=' text-gray-900 fs-lg-5 fs-6'
-            style={{overflowY: 'auto', maxHeight: '450px'}}
-          >
-            {body}
+          <div className='h-450px h-lg-500px hover-scroll-y text-gray-900 fs-lg-5 fs-6'>
+              {body} 
           </div>
         </div>
       </div>

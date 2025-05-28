@@ -7,7 +7,7 @@ import ProfilePage from "./profiles/ProfilePage"
 
 const customersBreadCrumbs: Array<PageLink> = [
     {
-      title: 'Үйлчлүүлэгч',
+      title: 'Эмчлүүлэгч',
       path: '/customer/list',
       isSeparator: false,
       isActive: false,
@@ -31,7 +31,7 @@ const CustomersPage = () => {
                 <Route 
                     path='list'
                     element={<>
-                        <PageTitle breadcrumbs={customersBreadCrumbs}>Үйлчлүүлэгчийн жагсаалт</PageTitle>
+                        <PageTitle breadcrumbs={customersBreadCrumbs}>Эмчлүүлэгчийн жагсаалт</PageTitle>
                         <CustomersList />
                     </>}
                 />

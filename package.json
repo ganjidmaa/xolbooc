@@ -2,7 +2,7 @@
   "name": "xolbooc_web_system",
   "version": "8.1.5",
   "private": true,
-  "homepage": "http://localhost:3011/",
+  "homepage": "/",
   "dependencies": {
     "@formatjs/intl-pluralrules": "4.3.3",
     "@formatjs/intl-relativetimeformat": "10.0.1",
@@ -56,6 +56,7 @@
     "react-topbar-progress-indicator": "4.1.1",
     "sass": "1.50.1",
     "socicon": "3.0.5",
+    "styled-components": "^6.1.8",
     "sweetalert2": "^11.6.7",
     "yup": "0.32.11"
   },

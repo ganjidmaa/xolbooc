@@ -7,7 +7,7 @@ const CustomerEditModalHeader = () => {
   return (
     <div className='modal-header'>
       {/* begin::Modal title */}
-      <h2 className='fw-bolder'>Үйлчлүүлэгч үүсгэх</h2>
+      <h2 className='fw-bolder'>Эмчлүүлэгч үүсгэх</h2>
       {/* end::Modal title */}
 
       {/* begin::Close */}

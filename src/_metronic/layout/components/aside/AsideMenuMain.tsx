@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-no-target-blank */
+import {useIntl} from 'react-intl'
 import {AsideMenuItemWithSubMain} from './AsideMenuItemWithSubMain'
 import {AsideMenuItem} from './AsideMenuItem'
 import {useAuth} from '../../../../app/modules/auth'
 import {ROLES} from '../../../helpers'
 
 export function AsideMenuMain() {
+  const intl = useIntl()
   const {settings, currentUser, paymentMethods} = useAuth()
   const userRole = currentUser?.role as string
   const activeCoupon =
@@ -52,42 +54,36 @@ export function AsideMenuMain() {
         </>
       )}
 
-      {userRole === ROLES.ADMIN && (
-        <AsideMenuItem
-          to='/user/list'
-          title='Ажилтан'
-          fontIcon='bi-person-check'
-          bsTitle='Ажилчид'
-          className='py-3'
-        />
-      )}
-      
-      {[ROLES.ADMIN, ROLES.RECEPTION].includes(userRole) && (
-        <AsideMenuItem
-          to='/customer/list'
-          title='Үйлчлүүлэгч'
-          fontIcon='bi-people'
-          bsTitle='Үйлчлүүлэгчид'
-          className='py-3'
-        />
-      )}
+      <AsideMenuItem
+        to='/user/list'
+        title='Ажилтан'
+        fontIcon='bi-person-check'
+        bsTitle='Ажилчид'
+        className='py-3'
+      />
 
-      {[ROLES.ADMIN, ROLES.ACCOUNTANT].includes(userRole) && (
-        <AsideMenuItem
-          to='/service/list'
-          title='Ангилал, үйлчилгээ'
-          fontIcon='bi-cart'
-          className='py-3'
-          bsTitle='Ангилал, үйлчилгээ'
-        />
-      )}
-      {/* <AsideMenuItem
-        to='/app_options/list'
-        title='Захиалгын онош'
+      <AsideMenuItem
+        to='/customer/list'
+        title='Эмчлүүлэгч'
+        fontIcon='bi-people'
+        bsTitle='Эмчлүүлэгчид'
+        className='py-3'
+      />
+
+      <AsideMenuItem
+        to='/service/list'
+        title='Онош, эмчилгээ'
+        fontIcon='bi-heart-pulse'
+        className='py-3'
+        bsTitle='Онош, эмчилгээ'
+      />
+      <AsideMenuItem
+        to='/service_method/list'
+        title='Эмчилгээний арга'
         fontIcon='bi-clipboard-heart'
         className='py-3'
-        bsTitle='Захиалгын онош'
-      /> */}
+        bsTitle='Эмчилгээний арга'
+      />
       {/* <AsideMenuItem
         to='/resource/list'
         title='Нөөц'
@@ -110,7 +106,7 @@ export function AsideMenuMain() {
                   to='/promote/coupon/type'
                   title='Купон '
                   hasBullet={true}
-                  bsTitle='Купон '
+                  bsTitle='Купон төрлүүд'
                 />
             )}
             
@@ -147,7 +143,6 @@ export function AsideMenuMain() {
               className='py-3'
             />
           )}
-    
 
           <AsideMenuItemWithSubMain to='/settings' title='Тохиргоо' fontIcon='bi-gear'>
             <AsideMenuItem
@@ -163,17 +158,11 @@ export function AsideMenuMain() {
               bsTitle='Дансны мэдээлэл'
             />
             <AsideMenuItem
-              to='/booking-settings/online-booking'
+              to='/settings/online-booking'
               title='Онлайн захиалга'
               hasBullet={true}
               bsTitle='Онлайн захиалгын тохиргоо'
             />
-            <AsideMenuItem
-              to='/shift/schedules'
-              title='Ажиллах хуваарь'
-              hasBullet={true}
-              bsTitle='Хуваарь'
-          />
           </AsideMenuItemWithSubMain>
         </>
       )}

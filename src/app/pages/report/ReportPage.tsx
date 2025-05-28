@@ -5,7 +5,7 @@ import { useState } from "react";
 import { NotifySuccess } from "../../../_metronic/helpers/notify/NotifySuccess";
 import { WarningAlert } from "../../../_metronic/helpers/alerts/Warning";
 import { ErrorAlert } from "../../../_metronic/helpers/alerts/Error";
-import { getGeneralReport, incomeReportByUsers, incomeReportByDays, attendanceReportByUsers, attendanceReportByServices, attendanceReportByRushHours, customerReportByFrequency } from "./core/_requests";
+import { getGeneralReport, incomeReportByUsers, incomeReportByDays, attendanceReportByUsers, attendanceReportByServices, attendanceReportByRushHours, serviceReortByEvents } from "./core/_requests";
 import { ReportLoading } from "./loading/ReportLoading";
 import { saveAs } from "file-saver";
 import { DateRange } from "../../../_metronic/helpers/components/DateRange";
@@ -56,7 +56,7 @@ export const ReportPage = () => {
                             <div className="col-md-6 col-lg-4 col-xl-3">
                                 <Card4 icon='/media/svg/files/xls-info.svg' 
                                     title='Нэгдсэн тайлан' 
-                                    description='Үйлчилгээний дэлгэрэнгүй' 
+                                    description='Эмчилгээний дэлгэрэнгүй' 
                                     handleDownload={() => handleDownload(getGeneralReport)}
                                 />
                             </div>
@@ -64,7 +64,7 @@ export const ReportPage = () => {
                             <div className="col-md-6 col-lg-4 col-xl-3">
                                 <Card4 icon='/media/svg/files/xls-red.svg' 
                                     title='Орлогын тайлан' 
-                                    description='Ажилчдаар' 
+                                    description='Эмчээр' 
                                     handleDownload={() => handleDownload(incomeReportByUsers)}/>
                             </div>
 
@@ -77,30 +77,29 @@ export const ReportPage = () => {
 
                             <div className="col-md-6 col-lg-4 col-xl-3">
                                 <Card4 icon='/media/svg/files/xls-pink.svg' 
-                                    title='Үйлчилгээний тайлан' 
-                                    description='Ажилчдаар' 
+                                    title='Эмчилгээний тайлан' 
+                                    description='Эмчээр' 
                                     handleDownload={() => handleDownload(attendanceReportByUsers)}/>
                             </div>
 
                             <div className="col-md-6 col-lg-4 col-xl-3">
                                 <Card4 icon='/media/svg/files/xls-yellow.svg'
-                                    title='Үйлчилгээний тайлан' 
-                                    description='Үйлчилгээгээр' 
+                                    title='Эмчилгээний тайлан' 
+                                    description='Эмчилгээгээр' 
                                     handleDownload={() => handleDownload(attendanceReportByServices)}/>
                             </div>
 
                             <div className="col-md-6 col-lg-4 col-xl-3">
                                 <Card4 icon='/media/svg/files/xls-green.svg'
-                                    title='Үйлчилгээний тайлан' 
+                                    title='Эмчилгээний тайлан' 
                                     description='Цагийн ачааллаар' 
                                     handleDownload={() => handleDownload(attendanceReportByRushHours)}/>
                             </div>
-
                             <div className="col-md-6 col-lg-4 col-xl-3">
-                                <Card4 icon='/media/svg/files/xls-brown.svg'
-                                    title='Хэрэглэгчийн тайлан' 
-                                    description='Давтамжаар' 
-                                    handleDownload={() => handleDownload(customerReportByFrequency)}/>
+                                <Card4 icon='/media/svg/files/xls-green.svg'
+                                    title='Үзлэгийн болон хүлээлгийн тайлан' 
+                                    description='Цаг захиалгаар' 
+                                    handleDownload={() => handleDownload(serviceReortByEvents)}/>
                             </div>
                         </div>
 

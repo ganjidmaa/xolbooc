@@ -16,6 +16,9 @@ const CalendarDataProvider: FC<WithChildren> = ({children}) => {
     const [users, setUsers] = useState(initialCalendarData.users)
     const [branches, setBranches] = useState(initialCalendarData.branches)
     const [bankAccounts, setBankAccounts] = useState(initialCalendarData.bankAccounts)
+    const [serviceUsers, setServiceUsers] = useState(initialCalendarData.serviceUsers)
+    const [serviceMethods, setServiceMethods] = useState(initialCalendarData.serviceMethods)
+
 
     const {
         refetch,
@@ -35,6 +38,8 @@ const CalendarDataProvider: FC<WithChildren> = ({children}) => {
             setUsers(response.users)
             setBranches(response.branches)
             setBankAccounts(response.bankAccounts)
+            setServiceUsers(response.serviceUsers)
+            setServiceMethods(response.serviceMethods)
         }
     }, [response])
 
@@ -47,6 +52,8 @@ const CalendarDataProvider: FC<WithChildren> = ({children}) => {
                 users,
                 branches,
                 bankAccounts,
+                serviceUsers,
+                serviceMethods,
                 refetch
             }}
         >

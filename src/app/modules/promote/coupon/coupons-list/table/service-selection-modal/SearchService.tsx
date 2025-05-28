@@ -30,7 +30,7 @@ const SearchService: FC<Props> = ({services}) => {
                 </span>
                 <input type="text"
                     className="form-control"
-                    placeholder="Үйлчилгээ хайх"
+                    placeholder="Эмчилгээ хайх"
                     aria-label="Service"
                     aria-describedby="basic-addon1"
                     value={searchTerm}

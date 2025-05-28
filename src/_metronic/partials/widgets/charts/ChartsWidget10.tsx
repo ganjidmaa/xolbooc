@@ -70,8 +70,10 @@ const ChartsWidget10: React.FC<Props> = ({className,dataProp}) => {
 export {ChartsWidget10}
 
 function getChartOptions(height: number,dataProp: Array<BranchAppointments>): ApexOptions {
+  const labelColor = getCSSVariableValue('--kt-gray-500')
   const borderColor = getCSSVariableValue('--kt-gray-200')
 
+  const baseColor = getCSSVariableValue('--kt-primary')
   const baseLightColor = getCSSVariableValue('--kt-primary-light')
   const secondaryColor = getCSSVariableValue('--kt-info')
   const data = dataProp

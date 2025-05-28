@@ -68,7 +68,7 @@ const UsersListFilter = () => {
               <option value=''>Бүх</option>
               <option value='administrator'>Админ</option>
               <option value='accountant'>Санхүү</option>
-              <option value='user'>Хэрэглэгч</option>
+              <option value='user'>Эмч</option>
               <option value='reception'>Ресепшн</option>
             </select>
           </div>

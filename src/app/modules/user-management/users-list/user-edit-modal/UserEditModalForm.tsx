@@ -4,6 +4,7 @@ import {useFormik} from 'formik'
 import {CRUD_RESPONSES, GroupSoumDistrict, KTSVG, Province, DropzoneComponent, ConvertFileToBase64} from '../../../../../_metronic/helpers'
 import {initialUser, Role, User} from '../../core/_models'
 import {useListView} from '../provider/ListViewProvider'
+import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {useQueryResponse} from '../provider/QueryResponseProvider'
 import Select from 'react-select'
 import { NumericFormat as NumberFormat } from 'react-number-format'
@@ -14,7 +15,6 @@ import { createUser } from '../../core/_requests'
 import { WarningAlert } from '../../../../../_metronic/helpers/alerts/Warning'
 import { Branch } from '../../../branch/core/_models'
 import { useAuth } from '../../../auth'
-import { Loading } from '../../../../../_metronic/partials/loading/Loading'
 
 type Props = {
   isUserLoading: boolean
@@ -477,7 +477,7 @@ const UserEditModalForm: FC<Props> = ({isUserLoading, provinces, soumDistricts: 
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting || isUserLoading) && <Loading />}
+      {(formik.isSubmitting || isUserLoading) && <UsersListLoading />}
     </>
   )
 }

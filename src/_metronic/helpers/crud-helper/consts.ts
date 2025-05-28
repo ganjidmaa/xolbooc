@@ -25,8 +25,8 @@ const QUERIES = {
   DETAIL_LIST: 'detail-list',
   SMS_HISTORY: 'sms-history',
   APP_OPTIONS_LIST: 'app-options',
-  SHIFT_LIST: 'shift-list',
-  COMMENTS_LIST: 'comments-list',
+  HEALTH_CONDITION: 'health-condition',
+  SERVICE_METHODS_LIST: 'service-methods'
 }
 
 const STATES = {
@@ -40,7 +40,7 @@ const CRUD_RESPONSES = {
   warning: 'Уучлаарай! Амжилтгүй боллоо. Дахин оролдоно уу.',
   error: 'Уучлаарай! Дахин оролдоно уу.',
   failed_authorization: 'Энэ үйлдлийг хийх эрхгүй байна.',
-  role_limit: 'Багцад хамаарах хэрэглэгчийн эрхийн тоо дүүрсэн байна. Багцаа ахиулна уу!',
+  role_limit: 'Багцад хамаарах эмчийн эрхийн тоо дүүрсэн байна. Багцаа ахиулна уу!',
 }  
 
 const ROLES = {

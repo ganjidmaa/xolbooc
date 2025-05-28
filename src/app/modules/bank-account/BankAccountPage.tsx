@@ -10,7 +10,13 @@ const BankAccountPage = () => {
           path: '/bank_account/list',
           isSeparator: false,
           isActive: false,
-        }
+        },
+        // {
+        //   title: '',
+        //   path: '',
+        //   isSeparator: true,
+        //   isActive: false,
+        // },
     ]
 
     return (

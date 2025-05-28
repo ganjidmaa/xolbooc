@@ -154,7 +154,7 @@ const ServiceModalForm: FC<Props> = ({ services, serviceCategories, toggleServic
                     </div>
                     <div className='ms-5'>
                       <div className='fs-5 fw-bolder text-hover-primary text-gray-800'>
-                        Бүх үйлчилгээ
+                        Бүх эмчилгээ
                       </div>
                     </div>
                   </div>

@@ -30,7 +30,7 @@ const SearchCustomer: FC<Props> = ({customers}) => {
                 </span>
                 <input type="text"
                     className="form-control"
-                    placeholder="Үйлчлүүлэгч хайх"
+                    placeholder="Эмчлүүлэгч хайх"
                     aria-label="Customer"
                     aria-describedby="basic-addon1"
                     value={searchTerm}

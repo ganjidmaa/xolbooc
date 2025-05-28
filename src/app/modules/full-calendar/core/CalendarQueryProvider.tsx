@@ -43,6 +43,8 @@ const useQueryResponseData = () => {
     }, [updatedQuery])
   
     const {
+      isFetching,
+      refetch,
       data: response,
     } = useQuery(
       `${QUERIES.CUSTOMERS_LIST}-${query}`,

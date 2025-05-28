@@ -12,7 +12,7 @@ export const UserIndex = () => {
         firstname: 'Боломжит хэрэглэгчид'
     }
     return (
-        <BookingCard title="Үйлчилгээ хийх ажилтан сонгоно уу"
+        <BookingCard title="Эмчилгээ хийх эмчээ сонгоно уу"
             body={<>
                     <UserItem user={anyUser} key={0}/>
                     {users.map(user => {

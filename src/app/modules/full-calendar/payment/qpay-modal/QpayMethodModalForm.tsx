@@ -13,6 +13,7 @@ import css from '../style.module.css'
 import { SuccessAlert } from '../../../../../_metronic/helpers/alerts/Success'
 import { WarningAlert } from '../../../../../_metronic/helpers/alerts/Warning'
 import { useCalendarView } from '../../core/CalendarViewProvider'
+import { useAuth } from '../../../auth'
 
 declare global {
   interface Window {
@@ -48,14 +49,14 @@ const QpayMethodModalForm: FC<Props> = ({
   addSplitPayment,
   totalLeftPayment
 }) => {
-  let {eventIdForUpdate, activeTab} = useCalendarView()
+  let {eventIdForUpdate} = useCalendarView()
   const [qpayResponse, setQpayResponse] = useState<any>({})
+  const {settings} = useAuth();
   const [leftPayment, setLeftPayment] = useState(totalLeftPayment)
   const [qpayInvoiceData] = useState<QpayInvoiceRequest>({
     amount: '' + totalLeftPayment,
     desc: '',
-    appointment_id: '' + eventIdForUpdate,
-    branch_id: 0
+    appointment_id: '' + eventIdForUpdate
   })
   
   // window.Echo = null;
@@ -65,7 +66,6 @@ const QpayMethodModalForm: FC<Props> = ({
     validationSchema: paymentMethodSchema,
     onSubmit: async (values, {setSubmitting}) => {
       values.amount = (values.amount as string).replaceAll(',', '')
-      values.branch_id = activeTab
       qpayInvoice(values).then((response) => setQpayResponse(response))
     },
   })
@@ -143,7 +143,7 @@ const QpayMethodModalForm: FC<Props> = ({
     togglePaymentModal()
   }
 
-  function qpayInvoiceCheckd() {
+  function qpayInvoiceCheckd(){
     qpayInvoiceCheck({invoice_id:`${qpayResponse.invoice_id}`}).then((response:any)=>{
       if(response.success === true) {
         SuccessAlert('Таны төлбөр амжилттай төлөгдсөн байна')

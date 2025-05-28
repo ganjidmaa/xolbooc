@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios"
 import { ID, Response } from "../../../../_metronic/helpers"
-import { AppointmentHistory, Customer, CustomersQueryResponse, Invoice, MasterData, MembershipData, Payment } from "./_models"
+import { AppointmentHistory, Customer, CustomersQueryResponse, Invoice, MasterData, MembershipData, Payment, ImageUpload, CustomerImageData } from "./_models"
 
 const APP_URL = process.env.REACT_APP_API_URL
 const CUSTOMER_URL = `${APP_URL}/customer`
@@ -81,6 +81,22 @@ const addMembers = (data: any): Promise<Response<Customer>> => {
     .then((response: AxiosResponse<Response<Customer>>) => response.data)
 }
 
+const addImage = (data: any): Promise<Response<ImageUpload>> => {
+    return axios
+    .post(`${CUSTOMER_URL}/images/add_image`, data)
+    .then((response: AxiosResponse<Response<ImageUpload>>) => response.data)
+}
+const getCustomerImages = (customerId: ID): Promise<Response<Array<CustomerImageData>>> => {
+    return axios
+    .get(`${CUSTOMER_URL}/get_customer_images/${customerId}`)
+    .then((response: AxiosResponse<Response<Array<CustomerImageData>>>) => response.data)
+}
+const deleteCustomerImage = (imageId: ID): Promise<Response<Array<CustomerImageData>>> => {
+    return axios
+    .get(`${CUSTOMER_URL}/delete_customer_image/${imageId}`)
+    .then((response: AxiosResponse<Response<Array<CustomerImageData>>>) => response.data)
+}
+
 export {
     getCustomers,
     getCustomerById, 
@@ -95,4 +111,7 @@ export {
     getMembershipInfo,
     removeMemberRequest,
     addMembers,
+    addImage,
+    getCustomerImages,
+    deleteCustomerImage
 }

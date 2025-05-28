@@ -17,7 +17,6 @@ export type Service = {
   available_all_branch?: boolean
   checked_branches?: Array<string>
   is_app_option?: boolean
-  is_popular?: boolean
 }
 
 export type MasterData = {

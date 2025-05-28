@@ -21,25 +21,24 @@ type Props = {
 
 export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
   const {refetch} = useAuth()
-  const {settings} = useAuth()
+  const {settings, currentUser} = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [themeColor, setThemeColor] = useState(bookingSettings.theme_color || 'baige')
-  const [theme, setTheme] = useState(bookingSettings.theme_selection || 1)
-
+  const formattedAmount =
+    Intl.NumberFormat('en-US').format(
+      parseInt(bookingSettings.validate_amount ? bookingSettings.validate_amount : '0')
+    ) + '₮'
+  const [validateAmount, setValidateAmount] = useState(formattedAmount)
   const [data] = useState<OnlineBookingSettings>({
     ...bookingSettings,
     image: bookingSettings.image || [],
     choose_user: bookingSettings.choose_user || false,
     choose_qpay: bookingSettings.choose_qpay || false,
     choose_autoDiscard: bookingSettings.choose_autoDiscard || false,
+    validate_amount: formattedAmount || '',
     about: bookingSettings.about || '',
     important_info: bookingSettings.important_info || '',
     location: bookingSettings.location || '',
     file: bookingSettings.file || [],
-    group_booking: bookingSettings.group_booking || false,
-    group_booking_limit: bookingSettings.group_booking_limit || 0,
-    theme_color: bookingSettings.theme_color || 'baige',
-    theme_selection: bookingSettings.theme_selection || 1,
   })
 
   const formik = useFormik({
@@ -48,9 +47,7 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
     onSubmit: async (values, {setSubmitting}) => {
       setIsLoading(true)
       setSubmitting(false)
-      values.validate_amount = values.validate_amount ? values.validate_amount.replaceAll(',', '') : '0'
-      values.theme_color = themeColor
-      values.theme_selection = theme
+      values.validate_amount = validateAmount
       try {
         const response = await updateBookingSettings(values)
         const status = response.payload?.status
@@ -81,8 +78,8 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
   }
 
   var currentURL = window.location.href
-  var searchStr = '/booking-settings/online-booking'
-  var replace = '/booking'
+  var searchStr = '/settings/online-booking'
+  var replace = '/booking/index'
   var regex = new RegExp(searchStr, 'g')
   var onlineLink = currentURL.replace(regex, replace)
 
@@ -91,28 +88,26 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
       <div className='card-header'>
         <div className='card-title fs-3 fw-bolder'>Ерөнхий мэдээлэл</div>
       </div>
-      {formik.values?.choose_qpay && (
-        <div className='my-10 mx-4 mx-md-20 notice bg-light-warning rounded border-warning border p-4 fs-6'>
-          <h3 className='text-center'>Урьдчилгаа төлбөртэй холбоотой анхаарах зүйлс</h3>
-          <ul>
-            <li className='mb-2'>
-              Зарим үед манай програмаас үл хамааран Qpay-ийн холболт, банкны сүлжээний доголдол
-              болон бусад зүйлсийн улмаас хэрэглэгчийн данснаас төлбөр гарсан боловч захиалга
-              баталгаажаагүй байх магадлалтай.
-            </li>
-            <li>
-              Урьдчилгаа төлбөр нь "Нэр Утас uridchilgaa" гэсэн гүйлгээний утгатай хийгдэнэ. <br />
-              Жишээ нь: <strong>Солонго 89****** uridchilgaa</strong>
-              <br />
-              Дээрх загвараар өөрийн данснаас гүйлгээг баталгаажуулах боломжтой.
-            </li>
-            <li>
-              <strong>Цаг захиалгыг автоматаар цуцлах</strong> сонголтыг хийснээр урьдчилгаа төлбөр
-              баталгаажуулаагүй хэрэглэгчийн захиалгыг 30 минутын дараа автоматаар устгана.
-            </li>
-          </ul>
-        </div>
-      )}
+      <div className='my-10 mx-4 mx-md-20 notice bg-light-warning rounded border-warning border p-4 fs-6'>
+        <h3 className='text-center'>Урьдчилгаа төлбөртэй холбоотой анхаарах зүйлс</h3>
+        <ul>
+          <li className='mb-2'>
+            Зарим үед манай програмаас үл хамааран Qpay-ийн холболт, банкны сүлжээний доголдол болон
+            бусад зүйлсийн улмаас хэрэглэгчийн данснаас төлбөр гарсан боловч захиалга баталгаажаагүй
+            байх магадлалтай.
+          </li>
+          <li>
+            Урьдчилгаа төлбөр нь "Нэр Утас uridchilgaa" гэсэн гүйлгээний утгатай хийгдэнэ. <br />
+            Жишээ нь: <strong>Солонго 89****** uridchilgaa</strong>
+            <br />
+            Дээрх загвараар өөрийн данснаас гүйлгээг баталгаажуулах боломжтой.
+          </li>
+          <li>
+            <strong>Цаг захиалгыг автоматаар цуцлах</strong> сонголтыг хийснээр урьдчилгаа төлбөр
+            баталгаажуулаагүй хэрэглэгчийн захиалгыг 30 минутын дараа автоматаар устгана.
+          </li>
+        </ul>
+      </div>
       <form className='form' onSubmit={formik.handleSubmit} noValidate>
         <div className='card-body p-9'>
           <div className='row mb-5'>
@@ -127,7 +122,7 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
                 isMultiple={true}
               />
               <input {...formik.getFieldProps('file')} hidden />
-              <div className='form-text'>Allowed file types: png, jpg, jpeg.</div>
+              <div className='form-text'>Зөвшөөрөх зургийн төрөл: png, jpg, jpeg. Хадгалах боломжит зургийн тоо: 4ш.</div>
             </div>
           </div>
 
@@ -148,122 +143,13 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
               </div>
             </div>
           </div>
-          {/* <div className='row mb-8 d-lg-flex align-items-center'>
-            <div className='col-lg-3'>
-              <div className='fs-6 fw-bold mt-2 mb-3'>Загвар</div>
-            </div>
-
-            <div className='col-lg-8 fv-row'>
-              <div className='d-flex gap-4 gap-sm-10'>
-                <div className='form-check form-check-custom form-check-solid form-check-lg'>
-                  <input
-                    className='form-check-input'
-                    type='radio'
-                    name='theme'
-                    id='flexThemeCheckboxSm1'
-                    checked={theme === 1}
-                    onChange={() => setTheme(1)}
-                  />
-                  <label className='form-check-label' htmlFor='flexThemeCheckboxSm1'>
-                    Загвар 1
-                  </label>
-                </div>
-                <div className='form-check form-check-custom form-check-solid form-check-lg'>
-                  <input
-                    className='form-check-input'
-                    type='radio'
-                    name='theme'
-                    id='flexThemeCheckboxSm2'
-                    checked={theme === 2}
-                    onChange={() => setTheme(2)}
-                  />
-                  <label className='form-check-label' htmlFor='flexThemeCheckboxSm2'>
-                    Загвар 2
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div> */}
-          {/* <div className='row mb-8 d-lg-flex align-items-center'>
-            <div className='col-lg-3'>
-              <div className='fs-6 fw-bold mt-2 mb-3'>Загварын өнгө</div>
-            </div>
-
-            <div className='col-lg-8 fv-row'>
-              <div className='d-flex gap-4 gap-sm-10'>
-                <div className='form-check form-check-custom form-check-solid form-check-lg'>
-                  <input
-                    className='form-check-input'
-                    type='radio'
-                    name='theme_color'
-                    id='flexCheckboxSm1'
-                    checked={themeColor === 'baige'}
-                    onChange={() => setThemeColor('baige')}
-                  />
-                  <label
-                    className='form-check-label'
-                    style={{
-                      width: 38,
-                      height: 20,
-                      backgroundColor: '#ffe8d1',
-                      border: '2px solid #ffe8d1',
-                      borderRadius: 3,
-                    }}
-                    htmlFor='flexCheckboxSm1'
-                  ></label>
-                </div>
-                <div className='form-check form-check-custom form-check-solid form-check-lg'>
-                  <input
-                    className='form-check-input'
-                    type='radio'
-                    name='theme_color'
-                    id='flexCheckboxSm2'
-                    checked={themeColor === 'blue'}
-                    onChange={() => setThemeColor('blue')}
-                  />
-                  <label
-                    className='form-check-label'
-                    style={{
-                      width: 38,
-                      height: 20,
-                      backgroundColor: '#c0efff',
-                      border: '2px solid #c0efff',
-                      borderRadius: 3,
-                    }}
-                    htmlFor='flexCheckboxSm2'
-                  ></label>
-                </div>
-                <div className='form-check form-check-custom form-check-solid form-check-lg'>
-                  <input
-                    className='form-check-input'
-                    type='radio'
-                    name='theme_color'
-                    id='flexCheckboxSm3'
-                    checked={themeColor === 'teal'}
-                    onChange={() => setThemeColor('teal')}
-                  />
-                  <label
-                    className='form-check-label'
-                    style={{
-                      width: 38,
-                      height: 20,
-                      backgroundColor: '#d2d9e3',
-                      border: '2px solid #d2d9e3',
-                      borderRadius: 3,
-                    }}
-                    htmlFor='flexCheckboxSm3'
-                  ></label>
-                </div>
-              </div>
-            </div>
-          </div> */}
           {settings?.use_qpay === 1 && (
             <div className='row mb-8 d-lg-flex align-items-center'>
               <div className='col-lg-3'>
                 <div className='fs-6 fw-bold mt-2 mb-3'>Урьдчилгаа төлбөр авах эсэх (QPAY)</div>
               </div>
 
-              <div className='col-lg-3 fv-row'>
+              <div className='col-lg-8 fv-row'>
                 <div className='form-check form-check-solid form-switch fv-row'>
                   <input
                     className='form-check-input w-45px h-30px'
@@ -274,30 +160,6 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
                   <label className='form-check-label'></label>
                 </div>
               </div>
-
-              {formik.values.choose_qpay && (
-                <>
-                  <div className='col-lg-2'>
-                    <div className='fs-6 fw-bold mt-2 mb-3'>Урьдчилгаа төлбөр</div>
-                  </div>
-
-                  <div className='col-lg-3 fv-row'>
-                    <NumberFormat
-                      placeholder='Мөнгөн дүн'
-                      className="form-control"
-                      suffix='₮'
-                      {...formik.getFieldProps('validate_amount')}
-                      thousandSeparator={true}
-                  />
-                    <label className='form-check-label'></label>
-                    {formik.touched.validate_amount && formik.errors.validate_amount && (
-                      <div className='fv-plugins-message-container'>
-                        <div className='fv-help-block'>{formik.errors.validate_amount}</div>
-                      </div>
-                    )}
-                  </div>
-                </>
-              )}
             </div>
           )}
           {formik.values.choose_qpay && settings?.use_qpay === 1 && (
@@ -324,43 +186,50 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
                   </div>
                 </div>
               </div>
+              <div className='row mb-8 d-lg-flex align-items-center'>
+                <div className='col-lg-3'>
+                  <div className='fs-6 fw-bold mt-2 mb-3'>Урьдчилгаа төлбөр</div>
+                </div>
+
+                <div className='col-lg-8 fv-row w-200px'>
+                  <NumberFormat
+                    className='form-control'
+                    placeholder='Мөнгөн дүн'
+                    suffix='₮'
+                    onValueChange={(values: any) => {
+                      const {formattedValue, value} = values
+                      setValidateAmount(value)
+                    }}
+                    value={formattedAmount}
+                    thousandSeparator=','
+                  />
+                  <label className='form-check-label'></label>
+                  {formik.touched.validate_amount && formik.errors.validate_amount && (
+                    <div className='fv-plugins-message-container'>
+                      <div className='fv-help-block'>{formik.errors.validate_amount}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </>
           )}
 
-          <div className='row mb-8 d-lg-flex align-items-center'>
-            <div className='col-lg-3'>
-              <div className='fs-6 fw-bold mt-2 mb-3'>Давхар захиалга авах</div>
-            </div>
-
-            <div className='col-lg-3 fv-row'>
-              <div className='form-check form-check-solid form-switch fv-row'>
-                <input
-                  className='form-check-input w-45px h-30px'
-                  type='checkbox'
-                  {...formik.getFieldProps('group_booking')}
-                  checked={formik.values.group_booking}
-                />
-                <label className='form-check-label'></label>
-              </div>
-            </div>
-            {formik.values.group_booking && (
-              <>
-                <div className='col-lg-2'>
-                  <div className='fs-6 fw-bold mt-2 mb-3'>Захиалгын тоо хязгаарлах</div>
-                </div>
-
-                <div className='col-lg-3 fv-row'>
-                  <NumberFormat
-                    className='form-control'
-                    placeholder='Захиалгын тооны хязгаар'
-                    {...formik.getFieldProps('group_booking_limit')}
-                    thousandSeparator={false}
-                    allowLeadingZeros={false}
-                  />
-                </div>
-              </>
-            )}
-          </div>
+          {/* <div className="row mb-8">
+                        <div className="col-lg-3">
+                            <div className="fs-6 fw-bold mt-2 mb-3 required">Хаяг</div>
+                        </div>
+                        <div className="col-lg-8 fv-row">
+                            <input type="text" 
+                                className="form-control" 
+                                {...formik.getFieldProps('location')} 
+                            />  
+                            {formik.touched.location && formik.errors.location && (
+                            <div className='fv-plugins-message-container'>
+                                <div className='fv-help-block'>{formik.errors.location}</div>
+                            </div>
+                            )}                       
+                        </div>
+                    </div> */}
 
           <div className='row mb-8'>
             <div className='col-lg-3'>
@@ -368,6 +237,7 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
             </div>
             <div className='col-lg-8 fv-row'>
               <textarea
+                rows={5}
                 className='form-control'
                 placeholder='Нүүр хуудсанд гарах дэлгэрэнгүй мэдээлэл'
                 {...formik.getFieldProps('about')}
@@ -386,6 +256,7 @@ export const BookingSettingsDetail: FC<Props> = ({bookingSettings}) => {
             </div>
             <div className='col-lg-8 fv-row'>
               <textarea
+                rows={3}
                 className='form-control'
                 placeholder='Анхааруулах тэмдэглэл'
                 {...formik.getFieldProps('important_info')}

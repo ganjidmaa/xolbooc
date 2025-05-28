@@ -110,7 +110,7 @@ const ProfileDetails: React.FC = () => {
         setSubmitting(true)
         userListFetch()
         refetch()
-        navigate('/user/list/account/overview')
+        // navigate('/user/list/account/overview')
       }
     },
   })

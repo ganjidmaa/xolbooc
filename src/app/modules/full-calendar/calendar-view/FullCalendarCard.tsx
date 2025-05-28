@@ -8,7 +8,7 @@ import { FullCalendarView } from "./FullCalendarView"
 
 export const FullCalendarCard = () => {
     const {settings, currentUser} = useAuth()
-    const {activeTab,setActiveTab} = useCalendarView()
+    const {activeTab, setActiveTab} = useCalendarView()
     const userRole: string = currentUser?.role || ''
     const {USER} = ROLES;
     let userBranchCount = 0

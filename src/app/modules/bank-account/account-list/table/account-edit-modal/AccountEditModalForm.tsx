@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import {FC, useEffect, useState} from 'react'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import { useListView } from '../../core/ListViewProvider'
@@ -6,7 +6,9 @@ import { useQueryResponse } from '../../core/QueryResponseProvider'
 import { CRUD_RESPONSES, isNotEmpty } from '../../../../../../_metronic/helpers'
 import { createAccount, updateAccount } from '../../core/_requests'
 import { AccountListLoading } from '../../components/loading/AccountListLoading'
-
+import Datetime from 'react-datetime';
+import Moment from 'moment';
+import { NumericFormat as NumberFormat} from 'react-number-format';
 import { NotifySuccess } from '../../../../../../_metronic/helpers/notify/NotifySuccess'
 import { WarningAlert } from '../../../../../../_metronic/helpers/alerts/Warning'
 import { ErrorAlert } from '../../../../../../_metronic/helpers/alerts/Error'
@@ -25,6 +27,10 @@ const editAccountSchema = Yup.object().shape({
 const AccountEditModalForm: FC<Props> = ({account, isLoading}) => {
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
+  const [typeClassName] = useState('btn btn-outline-secondary text-muted text-hover-white text-active-white btn-outline btn-active-success')
+  const [typeClassNameActive] = useState('btn btn-outline-secondary text-muted text-hover-white text-active-white btn-outline btn-active-success active')
+  const [openServiceModal, setOpenServiceModal] = useState(false)
+
   const [accountForEdit] = useState<BankAccount>({
     ...account,
     name: account.name || '',

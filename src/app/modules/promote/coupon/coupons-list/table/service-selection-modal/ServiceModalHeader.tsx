@@ -9,7 +9,7 @@ const ServiceModalHeader:FC<Props> = ({toggleServiceModal}) => {
 
   return (
     <div className='modal-header'>
-      <h2 className='fw-bolder'>Үйлчилгээ сонгох</h2>
+      <h2 className='fw-bolder'>Эмчилгээ сонгох</h2>
       
       <div
         className='btn btn-icon btn-sm btn-active-icon-primary'

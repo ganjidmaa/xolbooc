@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios"
 import { ID, Response } from "../../../../_metronic/helpers"
-import { AllItemDatas, CouponCode, Customer, Event, EventDatas, EventShift, MasterData, PaymentForm, User } from "./_models"
+import { AllItemDatas, CouponCode, Customer, Event, MasterData, PaymentForm, User, HealthCondition, EventDatas,} from "./_models"
 import { PaymentMethod } from "../../auth"
 import { Invoice, Payment, QpayInvoiceRequest, QpayInvoiceRequestCheck, QpayInvoiceResponse, QpayInvoiceResponseCheck } from "../../customer-management/core/_models"
 
@@ -12,6 +12,7 @@ const GET_USERS_URL = `${APPOINTMENT_URL}/users`
 const EVENT_URL = `${APPOINTMENT_URL}/event`
 const ITEM_URL = `${APPOINTMENT_URL}/item`
 const CUSTOMER_URL = `${APP_URL}/customer`
+const HEALTH_CONDITION = `${APP_URL}/health_condition`
 const QPAY_URL = `${APP_URL}/qpay`
 
 const getMasterDatas = (): Promise<MasterData> => {
@@ -20,10 +21,10 @@ const getMasterDatas = (): Promise<MasterData> => {
     .then((response: AxiosResponse<MasterData>) => response.data)
 }
 
-const getEvents = (dates: object): Promise<Response<EventShift>> => {
+const getEvents = (dates: object): Promise<Response<Array<Event>>> => {
     return axios
     .post(GET_EVENTS_URL, dates)
-    .then((response: AxiosResponse<Response<EventShift>>) => response.data)
+    .then((response: AxiosResponse<Response<Array<Event>>>) => response.data)
 }
 
 const getEventById = (id: ID): Promise<EventDatas | undefined> => {
@@ -45,6 +46,20 @@ const changeEvent = (event: Event): Promise<Event | undefined> => {
     .post(`${EVENT_URL}/${event.id}`, event)
     .then((response: AxiosResponse<Response<Event>>) => response.data)
     .then((response: Response<Event>) => response.data)
+}
+
+const getHealthCondition = (id: ID): Promise<HealthCondition | undefined> => {
+    return axios
+    .get(`${HEALTH_CONDITION}/${id}`)
+    .then((response: AxiosResponse<Response<HealthCondition>>) => response.data)
+    .then((response: Response<HealthCondition>) => response.data)
+}
+
+const updateHealthCondition = (health_condition: HealthCondition): Promise<ID | undefined> => {
+    return axios
+    .post(HEALTH_CONDITION, health_condition)
+    .then((response: AxiosResponse<Response<ID>>) => response.data)
+    .then((response: Response<ID>) => response.data)
 }
 
 const updateEvent = (event: AllItemDatas): Promise<Event | undefined> => {
@@ -71,6 +86,12 @@ const createCustomer = (customer: Customer): Promise<Customer | undefined> => {
 const updateStatus = (id: ID, request:{status: string}): Promise<Response<Event>> => {
     return axios
     .post(`${APPOINTMENT_URL}/change_status/${id}`, request)
+    .then((response: AxiosResponse<Response<Event>>) => response.data)
+}
+
+const updateTreatmentStatus = (id: ID, request:{status: string}): Promise<Response<Event>> => {
+    return axios
+    .post(`${APPOINTMENT_URL}/change_treatment_status/${id}`, request)
     .then((response: AxiosResponse<Response<Event>>) => response.data)
 }
 
@@ -117,6 +138,11 @@ const voidPayment = (eventId: ID): Promise<Response<Invoice>> => {
     .then((response: AxiosResponse<Response<Invoice>>) => response.data)
 }
 
+const printHealthCondition = (id: ID): Promise<Response<any>> => {
+    return axios
+        .post(`${HEALTH_CONDITION}/print/${id}`)
+        .then((response: AxiosResponse<Response<any>>) => response.data)
+}
 const qpayInvoice = (qpayInvoiceRequestData: QpayInvoiceRequest): Promise<Response<QpayInvoiceResponse>> => {
     return axios 
     .post(`${QPAY_URL}/invoice`, qpayInvoiceRequestData)
@@ -138,6 +164,7 @@ export {
     createCustomer,
     updateEvent,
     updateStatus,
+    updateTreatmentStatus,
     updateDescription,
     cancelEvent,
     createPayment,
@@ -145,6 +172,9 @@ export {
     updatePaymentMethods,
     getPaymentDetails,
     voidPayment,
+    getHealthCondition,
+    updateHealthCondition,
+    printHealthCondition,
     qpayInvoice,
     qpayInvoiceCheck
 }

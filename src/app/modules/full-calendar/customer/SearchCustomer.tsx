@@ -32,7 +32,7 @@ const SearchCustomer = () => {
                 </span>
                 <input type="text" 
                     className="form-control" 
-                    placeholder="Утас, Нэр, Регистрээр хайна уу" 
+                    placeholder="Утас, Нэр, Регистрээр хайх" 
                     aria-label="Username" 
                     aria-describedby="basic-addon1"
                     value={searchTerm}

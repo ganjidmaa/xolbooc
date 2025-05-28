@@ -26,6 +26,7 @@ type AuthContextProps = {
   settings: Settings | undefined
   refetch: () => void
   paymentMethods: Array<PaymentMethod>
+  loading: boolean
 }
 
 const initAuthContextPropsState = {
@@ -36,7 +37,8 @@ const initAuthContextPropsState = {
   logout: () => {},
   settings: undefined,
   refetch: () => {},
-  paymentMethods: []
+  paymentMethods: [],
+  loading: true
 }
 
 const AuthContext = createContext<AuthContextProps>(initAuthContextPropsState)
@@ -49,6 +51,7 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
   const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
   const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
   const [settings, setSettings] = useState<Settings | undefined>()
+  const [loading, setLoading] = useState(true);
   const [paymentMethods, setPaymentMethods] = useState<Array<PaymentMethod>>([])
   const saveAuth = (auth: AuthModel | undefined) => {
     setAuth(auth)
@@ -84,11 +87,12 @@ const AuthProvider: FC<WithChildren> = ({children}) => {
     if(data) {
       setSettings(data.data.settings as Settings)
       setPaymentMethods(data.data.payment_methods as Array<PaymentMethod>)
+      setLoading(false)
     }
   }, [data])
 
   return (
-    <AuthContext.Provider value={{auth, saveAuth, currentUser, setCurrentUser, logout, settings, refetch, paymentMethods}}>
+    <AuthContext.Provider value={{auth, saveAuth, currentUser, setCurrentUser, logout, settings, refetch, paymentMethods, loading}}>
       {children}
     </AuthContext.Provider>
   )

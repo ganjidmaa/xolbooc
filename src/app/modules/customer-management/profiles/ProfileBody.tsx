@@ -25,7 +25,7 @@ export const ProfileBody = () => {
                         }
                         to='/customer/list/profile/appointment'
                     >
-                        Захиалгын түүх
+                        Эмчилгээний түүх
                     </Link>
                 </li>
                 <li className="nav-item">
@@ -48,6 +48,17 @@ export const ProfileBody = () => {
                         to='/customer/list/profile/membership'
                     >
                         Гишүүнчлэл
+                    </Link>
+                </li>
+                <li className="nav-item">
+                    <Link
+                        className={
+                        `nav-link text-active-primary me-6 ` +
+                        (location.pathname === '/customer/list/profile/images' && 'active')
+                        }
+                        to='/customer/list/profile/images'
+                    >
+                        Зураг
                     </Link>
                 </li>
             </ul>    

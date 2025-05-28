@@ -13,9 +13,7 @@ import {Logout, AuthPage, useAuth} from '../modules/auth'
 import {App} from '../App'
 import { BookingPage } from '../modules/online-booking/BookingPage'
 
-const {PUBLIC_URL, REACT_APP_API_URL} = process.env
-
-console.log('REACT_APP_API_URL', REACT_APP_API_URL)
+const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth()

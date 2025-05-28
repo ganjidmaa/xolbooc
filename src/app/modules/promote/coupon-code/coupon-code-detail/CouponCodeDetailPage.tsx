@@ -16,7 +16,8 @@ export const CouponCodeDetailPage: React.FC = () => {
 
     const {
         isLoading,
-        data
+        data,
+        error,
     } = useQuery(
         `${QUERIES.COUPON_CODES_LIST}-detail-${couponCodeId}`,
         () => {

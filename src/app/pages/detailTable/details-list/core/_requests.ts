@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from 'axios'
 import { DetailsQueryResponse, Status } from './_models'
+import { Response } from '../../../../../_metronic/helpers'
 
 const APP_URL = process.env.REACT_APP_API_URL
 const GET_DETAILS_URL = `${APP_URL}/details`

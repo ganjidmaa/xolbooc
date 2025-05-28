@@ -62,7 +62,7 @@ export const PaymentAside:FC<Props> = ({viewType, invoiceId=0, event, changeAsid
     useEffect(() => {
         setTotalPaymentState(parseInt(invoice?.payment as string))
         setDiscountAmount(parseInt(invoice?.discount_amount as string))
-    }, [event, invoice])
+    }, [event])
 
     useEffect(() => {
         let updatedPaidAmount = 0;
@@ -71,12 +71,12 @@ export const PaymentAside:FC<Props> = ({viewType, invoiceId=0, event, changeAsid
     }, [splitPayments])
 
     useEffect(() => {
-        let compute_payable = 0
+        let payable = 0
         if(eventStatus === 'part_paid' || eventStatus === 'unpaid') 
-            compute_payable = storedLeftPayment + extraPayment
+            payable = storedLeftPayment + extraPayment
         else
-            compute_payable = totalPaymentState - partPaidAmount + storedLeftPayment
-        setPayable(compute_payable)    
+            payable = totalPaymentState + storedLeftPayment
+        setPayable(payable)    
     }, [storedLeftPayment, extraPayment, totalPaymentState, eventStatus])
 
     useEffect(() => {
@@ -86,7 +86,7 @@ export const PaymentAside:FC<Props> = ({viewType, invoiceId=0, event, changeAsid
             discPayable = (payable - discountAmount)
 
         setDiscountedPayable(discPayable)    
-    }, [discountAmount, payable, eventStatus])
+    }, [discountAmount, payable])
 
     useEffect(() => {
         setCurrentLeftPayment(discountedPayable - currentPaidAmount)
@@ -103,12 +103,12 @@ export const PaymentAside:FC<Props> = ({viewType, invoiceId=0, event, changeAsid
         } 
 
         setCalculatedInvoice({...invoice, ...newInvoice})
-    }, [totalPaymentState, discountAmount, partPaidAmount, storedLeftPayment, discountedPayable, invoice])
+    }, [totalPaymentState, discountAmount, partPaidAmount, storedLeftPayment, discountedPayable])
 
     useEffect(() => {
         splitPayments.length > 0 && 
             splitPayments.map((splitPayment, index) => {
-                setHasQpayPayment(splitPayment.type === 'qpay')
+                setHasQpayPayment(splitPayment.type == 'qpay')
             })
     }, [splitPayments])
 

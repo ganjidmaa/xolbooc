@@ -8,15 +8,13 @@ import {WithChildren} from '../../_metronic/helpers'
 import {ReportPage} from '../pages/report/ReportPage'
 import {SmsPage} from '../pages/sms-history/SmsPage'
 import {SettingsRouter} from '../modules/settings/SettingsPage'
-import {BookingSettingsRouter} from '../modules/online-booking-settings/BookingSettingsPage'
+import {BookingSettingsWrapper} from '../modules/online-booking-settings/BookingSettingsPage'
 import BranchPage from '../modules/branch/BranchPage'
 import BankAccountPage from '../modules/bank-account/BankAccountPage'
 import {DetailPage} from '../pages/detailTable/DetailPage'
 import axios from 'axios'
 import Pusher from 'pusher-js'
 import Echo from 'laravel-echo'
-import ShiftPage from '../modules/shift/ShiftPage'
-import CommentPage from '../modules/comments/CommentPage'
 import MembershipTypesPage from '../modules/promote/membership-type/MembershipTypesPage'
 
 window.Pusher = Pusher
@@ -53,7 +51,7 @@ const PrivateRoutes = () => {
   const UserPage = lazy(() => import('../modules/user-management/UsersPage'))
   const CustomerPage = lazy(() => import('../modules/customer-management/CustomersPage'))
   const ServicePage = lazy(() => import('../modules/service-management/ServicesPage'))
-  const AppOptionPage = lazy(() => import('../modules/app-option/AppOptionPage'))
+  const ServiceMethodPage = lazy(() => import('../modules/service-method/ServiceMethodPage'))
   const ResourcePage = lazy(() => import('../modules/resources/ResourcesPage'))
   const DiscountPage = lazy(() => import('../modules/promote/discount/DiscountsPage'))
   const CouponPage = lazy(() => import('../modules/promote/coupon/CouponsPage'))
@@ -112,10 +110,10 @@ const PrivateRoutes = () => {
         />
 
         <Route
-          path='app_options/*'
+          path='service_method/*'
           element={
             <SuspensedView>
-              <AppOptionPage />
+              <ServiceMethodPage />
             </SuspensedView>
           }
         />
@@ -175,10 +173,10 @@ const PrivateRoutes = () => {
         />
 
         <Route
-          path='booking-settings/*'
+          path='settings/online-booking'
           element={
             <SuspensedView>
-              <BookingSettingsRouter />
+              <BookingSettingsWrapper />
             </SuspensedView>
           }
         />
@@ -210,16 +208,6 @@ const PrivateRoutes = () => {
           }
         />
 
-        <Route
-          path='shift/*'
-          element={
-            <SuspensedView>
-              <ShiftPage />
-            </SuspensedView>
-          }
-        />
-
-       
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
     </Routes>

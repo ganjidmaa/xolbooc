@@ -9,6 +9,8 @@ const CalendarItemProvider: FC<WithChildren> = ({children}) => {
     const {settings} = useAuth()
     const [itemDatas, setItemDatas] = useState<Array<Item>>([])
     const [desc, setDesc] = useState<string>('')
+    const [diagnosis, setDiagnosis] = useState<string>('')
+    const [conclusion, setConclusion] = useState<string>('')
     const [initialValue] = useState<Item>({
         start_time: '',
         service_id: undefined,
@@ -26,7 +28,11 @@ const CalendarItemProvider: FC<WithChildren> = ({children}) => {
                 itemDatas, 
                 setItemDatas,
                 desc, 
-                setDesc
+                setDesc,
+                conclusion,
+                setConclusion,
+                diagnosis,
+                setDiagnosis
             }}
         >
             {children}

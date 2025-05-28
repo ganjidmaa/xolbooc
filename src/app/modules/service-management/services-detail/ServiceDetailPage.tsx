@@ -80,7 +80,7 @@ export const ServiceDetailPage: React.FC = () => {
         return (
             <div>
                 <div className="card-px text-center pt-0 pb-15">
-                    <p className="text-gray-400 fs-4 fw-bold py-7">Үйлчилгээний мэдээлэл олдсонгүй.</p>
+                    <p className="text-gray-400 fs-4 fw-bold py-7">Эмчилгээний мэдээлэл олдсонгүй.</p>
                 </div>
                 <div className="text-center pb-0 px-5">
                     <img src="/media/illustrations/sketchy-1/4.png" alt="" className="mw-100 h-200px h-sm-325px" />

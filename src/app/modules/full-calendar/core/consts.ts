@@ -11,15 +11,15 @@ const userCanViewAllEvents = (role: string) => {
 }
 
 const userCanCreateEvents = (role: string) => {
-    return [ADMIN, RECEPTION].includes(role);
+    return [ADMIN, RECEPTION, USER].includes(role);
 }
 
 const userCanUpdateEvents = (role: string) => {
-    return [ADMIN, RECEPTION].includes(role);
+    return [ADMIN, RECEPTION, USER].includes(role);
 }
 
 const userCanDeleteEvents = (role: string) => {
-    return [ADMIN].includes(role);
+    return [ADMIN, RECEPTION, USER].includes(role);
 }
 
 export {

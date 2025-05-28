@@ -3,6 +3,7 @@ import { BOOKING_STEPS, ROLES } from "./crud-helper/consts"
 export const toAbsoluteUrl = (pathname: string) => process.env.PUBLIC_URL + pathname
 export const toApiPublicUrl = (pathname: string) => process.env.REACT_APP_URL + ''+ process.env.REACT_APP_STORAGE+'/user_images/' + pathname
 export const toExcelUrl = (pathname: string) => process.env.REACT_APP_URL +''+ process.env.REACT_APP_STORAGE+'/excels/' + pathname
+export const toHealthConditionUrl = (pathname: string) => process.env.REACT_APP_URL +''+ process.env.REACT_APP_STORAGE +'/' + pathname
 
 export const AppointmentStatus:Array<{value: string, name: string}> = [
     {value: 'booked', name: 'Цаг захиалсан'},
@@ -14,6 +15,12 @@ export const AppointmentStatus:Array<{value: string, name: string}> = [
     {value: 'completed', name: 'Дууссан'},
     {value: 'part_paid', name: 'Дууссан'},
     {value: 'unpaid', name: 'Дууссан'},
+]
+
+export const AppointmentTreatmentStatus:Array<{value: string, name: string}> = [
+    {value: '0', name: 'Хүлээлгэд орсон'},
+    {value: '1', name: 'Зөвлөгөө өгсөн'},
+    {value: '2', name: 'Мэс засал товлосон'}
 ]
 
 export const LightColor: Array<{value: string, name: string, label: string}> = [
@@ -40,6 +47,12 @@ export const AppointmentStatusLabel:Array<{value: string, name: string}> = [
     {value: 'unpaid', name: `btn btn-light-primary ${LightColor.filter(lc => lc.value === 'unpaid')[0]?.name} me-5 w-150px w-md-200px py-1`},
 ] 
 
+export const AppointmentTreatmentStatusLabel:Array<{value: string, name: string}> = [
+    {value: '0', name: `btn btn-light-primary ${LightColor.filter(lc => lc.value === '0')[0]?.name} me-5 w-150px w-md-200px py-1`},
+    {value: '1', name: `btn btn-light-primary ${LightColor.filter(lc => lc.value === '1')[0]?.name} me-5 w-150px w-md-200px py-1`},
+    {value: '2', name: `btn btn-light-primary ${LightColor.filter(lc => lc.value === '2')[0]?.name} me-5 w-150px w-md-200px py-1`},
+]
+
 export const AppointmentStatusColor:Array<{value: string, name: string}> = [
     {value: 'booked', name: 'dark'},
     {value: 'confirmed', name: 'warning'},
@@ -62,14 +75,14 @@ export const paymentStatusColors = [
 export const roleNames = [
     {'value': ROLES.ADMIN, 'name': 'Админ'},
     {'value': ROLES.RECEPTION, 'name': 'Ресепшн'},
-    {'value': ROLES.USER, 'name': 'Хэрэглэгч'},
+    {'value': ROLES.USER, 'name': 'Эмч'},
     {'value': ROLES.ACCOUNTANT, 'name': 'Санхүү'},
 ]
 
 export const bookingSteps = [
-    {'value': BOOKING_STEPS.ONE, 'route': 'service', 'errorMessage': 'Үйлчилгээ сонгоно уу'},
+    {'value': BOOKING_STEPS.ONE, 'route': 'service', 'errorMessage': 'Эмчилгээгээ сонгоно уу'},
     {'value': BOOKING_STEPS.TWO, 'route': 'date', 'errorMessage': 'Өдөр, цаг сонгоно уу'},
-    {'value': BOOKING_STEPS.THREE, 'route': 'customer', 'errorMessage': 'Үйлчлүүлэгчийн мэдээлэл оруулна уу'},
+    {'value': BOOKING_STEPS.THREE, 'route': 'customer', 'errorMessage': 'Эмчлүүлэгчийн мэдээлэл оруулна уу'},
 ]
 
 export const durationOptions = [

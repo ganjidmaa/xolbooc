@@ -41,8 +41,6 @@ export const BranchDetail: FC<Props> = ({branch}) => {
     slot_duration: branch.slot_duration || '30',
     start_time: branch.start_time || '09:00',
     end_time: branch.end_time || '18:00',
-    lunch_start_time: branch.lunch_start_time || '',
-    lunch_end_time: branch.lunch_end_time || '',
     business_days: branch.business_days || '12345',
   })
 
@@ -149,7 +147,6 @@ export const BranchDetail: FC<Props> = ({branch}) => {
               )}
             </div>
           </div>
-
           <div className='row mb-8'>
             <div className='col-xl-3'>
               <div className='fs-6 fw-bold mt-2 mb-3 required'>Салбарын утас</div>
@@ -199,7 +196,7 @@ export const BranchDetail: FC<Props> = ({branch}) => {
 
           <div className='row mb-8'>
             <div className='col-xl-3'>
-              <div className='fs-6 fw-bold mt-2 mb-3 required'>Ажлын өдрүүд</div>
+              <div className='fs-6 fw-bold mt-2 mb-3 required'>Ажилын өдрүүд</div>
             </div>
             <div className='col-xl-8 fv-row'>
               <div className='form-group'>
@@ -222,41 +219,6 @@ export const BranchDetail: FC<Props> = ({branch}) => {
                 })}
               </div>
             </div>
-          </div>
-
-
-            <div className='row mb-8'>
-                <div className='col-xl-3'>
-                    <div className='fs-6 fw-bold mt-2 mb-3'>Цайны цаг</div>
-                </div>
-                <div className='col-6 col-xl-4 fv-row'>
-                    <Datetime
-                        className='timePicker'
-                        dateFormat={false}
-                        timeFormat='HH:mm'
-                        {...formik.getFieldProps('lunch_start_time')}
-                        onChange={(val) => {
-                        handleOnChangeTime('lunch_start_time', val)
-                        }}
-                    />
-                </div>
-                <div className='col-6 col-xl-4 fv-row'>
-                    <Datetime
-                        className='timePicker'
-                        dateFormat={false}
-                        timeFormat='HH:mm'
-                        {...formik.getFieldProps('lunch_end_time')}
-                        onChange={(val) => {
-                        handleOnChangeTime('lunch_end_time', val)
-                        }}
-                    />
-                </div>
-                <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                          {"Цайны цагаар захиалга авдаг бол хоосон орхиж болно."}
-                  </div>
-                </div>
-            </div>
 
             <div className='row mb-8'>
               <div className='col-xl-3'>
@@ -270,42 +232,33 @@ export const BranchDetail: FC<Props> = ({branch}) => {
                     handleOnChange('slot_duration', opt)
                   }}
                 >
-
                   <option value='10'>10 мин</option>
                   <option value='15'>15 мин</option>
                   <option value='20'>20 мин</option>
                   <option value='30'>30 мин</option>
                   <option value='60'>60 мин</option>
-                  <option value='80'>80 мин</option>
-                  <option value='100'>100 мин</option>
-                  <option value='120'>120 мин</option>
-                  <option value='140'>140 мин</option>
-                  <option value='160'>160 мин</option>
-                  <option value='180'>180 мин</option>
-                  <option value='200'>200 мин</option>
-                  <option value='240'>240 мин</option>
-              </select>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div className='row mb-8'>
-            <div className='col-lg-3'>
-              <div className='fs-6 fw-bold mt-2 mb-3 required'>Хаяг</div>
-            </div>
-            <div className='col-lg-8 fv-row'>
-              <textarea
-                className='form-control'
-                placeholder='Хаяг'
-                {...formik.getFieldProps('address')}
-              />
-              {formik.touched.address && formik.errors.address && (
-                <div className='fv-plugins-message-container'>
-                  <div className='fv-help-block'>{formik.errors.address}</div>
-                </div>
-              )}
+            <div className='row mb-8'>
+              <div className='col-lg-3'>
+                <div className='fs-6 fw-bold mt-2 mb-3 required'>Хаяг</div>
+              </div>
+              <div className='col-lg-8 fv-row'>
+                <textarea
+                  className='form-control'
+                  placeholder='Хаяг'
+                  {...formik.getFieldProps('address')}
+                />
+                {formik.touched.address && formik.errors.address && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>{formik.errors.address}</div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-          
         </div>
 
         <div className='card-footer d-flex justify-content-end py-6 px-9'>

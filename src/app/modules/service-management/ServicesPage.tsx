@@ -6,7 +6,7 @@ import { ServicesWrapper } from "./ServicesWrapper"
 
 const servicesBreadcrumbs: Array<PageLink> = [
     {
-      title: 'Үйлчилгээ',
+      title: 'Онош',
       path: '/service/list',
       isSeparator: false,
       isActive: false,
@@ -26,7 +26,7 @@ const ServicesPage = () => {
                 <Route path="list" 
                     element={
                         <>
-                            <PageTitle breadcrumbs={servicesBreadcrumbs}>Үйлчилгээний жагсаалт</PageTitle>
+                            <PageTitle breadcrumbs={servicesBreadcrumbs}>Оношийн жагсаалт</PageTitle>
                             <ServicesList />
                         </>
                     }

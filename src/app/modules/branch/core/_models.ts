@@ -10,10 +10,6 @@ export type Branch = {
   label?: string
   address?: string
   business_days?: string
-  lunch_start_time?: string
-  lunch_end_time?: string
-  use_qpay?: boolean
-
 }
 export type BranchQueryResponse = Response<Array<Branch>>
 

@@ -50,10 +50,10 @@ const editCouponSchema = Yup.object().shape({
 })
 
 const CouponEditModalForm: FC<Props> = ({coupon, isLoading}) => {
-    const {setItemIdForUpdate} = useListView()
-    const {refetch} = useQueryResponse()
-    const [countServices, setCountServices] = useState('Бүх үйлчилгээ')
-    const [openServiceModal, setOpenServiceModal] = useState(false)
+  const {setItemIdForUpdate} = useListView()
+  const {refetch} = useQueryResponse()
+  const [countServices, setCountServices] = useState('Бүх эмчилгээ')
+  const [openServiceModal, setOpenServiceModal] = useState(false)
 
     const [couponForEdit] = useState<Coupon>({
         ...coupon,
@@ -70,13 +70,13 @@ const CouponEditModalForm: FC<Props> = ({coupon, isLoading}) => {
     })
 
     useEffect(() => {
-        if(coupon.id) {
-          if(!coupon.is_all_services) {
-              let numberOfServices = 0
-              coupon.selected_services.map(data => numberOfServices+= data.service_ids.length)
-              setCountServices(numberOfServices + ' үйлчилгээ сонгогдлоо')
-          }
+      if(coupon.id) {
+        if(!coupon.is_all_services) {
+          let numberOfServices = 0
+          coupon.selected_services.map(data => numberOfServices+= data.service_ids.length)
+          setCountServices(numberOfServices + ' эмчилгээ сонгогдлоо')
         }
+      }
     }, [coupon])
 
     const formik = useFormik({
@@ -111,12 +111,12 @@ const CouponEditModalForm: FC<Props> = ({coupon, isLoading}) => {
     }
 
     const toggleServiceModal = (selectedServices?: Array<SelectedService>, allServiceChecked?: boolean, numberOfServices?: number) => {
-        setOpenServiceModal(!openServiceModal)
-        if(selectedServices && allServiceChecked !== undefined && numberOfServices) {
+      setOpenServiceModal(!openServiceModal)
+      if(selectedServices && allServiceChecked !== undefined && numberOfServices) {
         formik.setFieldValue('selected_services', selectedServices)
         formik.setFieldValue('is_all_services', allServiceChecked)
-        setCountServices(numberOfServices + ' үйлчилгээ сонгогдлоо')
-        }
+        setCountServices(numberOfServices + ' эмчилгээ сонгогдлоо')
+      }
     }
 
     const cancel = (withRefresh?: boolean) => {
@@ -302,7 +302,7 @@ const CouponEditModalForm: FC<Props> = ({coupon, isLoading}) => {
           
 
           {/* <div className='fv-row mb-6'>
-            <label className="d-block fw-bold fs-6 mb-2">Хамрах үйлчилгээ</label>
+            <label className="d-block fw-bold fs-6 mb-2">Хамрах эмчилгээ</label>
             <div className='input-group'>
               <input 
                 type="text" 

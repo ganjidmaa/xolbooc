@@ -186,7 +186,7 @@ const CouponCodeEditModalForm: FC<Props> = ({isLoading, coupons}) => {
                           <h5 className="text-gray-800 fw-bold">Бусад</h5>
                           <div className="fw-semibold">
                             {/* <tr>
-                                <td className="text-gray-700 w-150px">Хамрах үйлчилгээ</td>
+                                <td className="text-gray-700 w-150px">Хамрах эмчилгээ</td>
                                 <td className="text-gray-700 fw-bold">{selectedCoupon.services}</td>
                             </tr> */}
                             <tr>

@@ -53,13 +53,6 @@ const servicesColumns: ReadonlyArray<Column<Service>> = [
     } />,
   },
   {
-    Header: (props) => <ServiceCustomHeader tableProps={props} title='Түгээмэл эсэх' className='min-w-115px' />,
-    id: 'is_popular',
-    Cell: ({...props}) => <InfoCell data={
-      props.data[props.row.index].is_popular === 1 ? 'Тийм' : props.data[props.row.index].is_popular === 0 ? 'Үгүй' : ''
-    } />,
-  },
-  {
     Header: (props) => (
       <ServiceCustomHeader tableProps={props} className='text-end min-w-125px' />
     ),

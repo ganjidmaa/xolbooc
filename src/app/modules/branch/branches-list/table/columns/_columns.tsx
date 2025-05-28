@@ -24,26 +24,17 @@ const branchesColumns: ReadonlyArray<Column<Branch>> = [
   },
   {
     Header: (props) => (
-      <CustomHeader tableProps={props} title='Ажлын цаг' className='min-w-100px' />
+      <CustomHeader tableProps={props} title='Эхлэх цаг' className='min-w-100px' />
     ),
     id: 'start_time',
-    Cell: ({...props}) => <InfoCell data={props.data[props.row.index].start_time + ' - ' + props.data[props.row.index].end_time} />,
+    Cell: ({...props}) => <InfoCell data={props.data[props.row.index].start_time} />,
   },
   {
     Header: (props) => (
-      <CustomHeader tableProps={props} title='Цайны цаг' className='min-w-100px' />
+      <CustomHeader tableProps={props} title='Дуусах цаг' className='min-w-100px' />
     ),
-    id: 'lunch_start_time',
-    Cell: ({...props}) => <InfoCell data={(props.data[props.row.index].lunch_start_time || '') + ' - ' + (props.data[props.row.index].lunch_end_time || '')} />,
-  },
-  {
-    Header: (props) => (
-      <CustomHeader tableProps={props} title='QPAY -тэй эсэх' className='min-w-100px' />
-    ),
-    id: 'use_qpay',
-    Cell: ({...props}) => <InfoCell data={
-      props.data[props.row.index].use_qpay === 1 ? 'Тийм' : props.data[props.row.index].use_qpay === 0 ? 'Үгүй' : ''
-    } />
+    id: 'end_time',
+    Cell: ({...props}) => <InfoCell data={props.data[props.row.index].end_time} />,
   },
   {
     Header: (props) => (

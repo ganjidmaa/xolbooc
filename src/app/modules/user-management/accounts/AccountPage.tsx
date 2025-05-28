@@ -26,7 +26,6 @@ const AccountPage: React.FC = () => {
       <Route element={<AccountProfileWrapper />}>
           <Route
             path='overview'
-
             element={
               <>
                 <PageTitle breadcrumbs={accountBreadCrumbs}>Үндсэн</PageTitle>
@@ -43,7 +42,7 @@ const AccountPage: React.FC = () => {
               </>
             }
           />
-         
+
           <Route index element={<Navigate to='/account/overview' />} />
       </Route>
     </Routes>

@@ -7,11 +7,11 @@ const userCanViewCustomers = (role: string) => {
 }
 
 const userCanCreateCustomers = (role: string) => {
-    return [ADMIN, RECEPTION].includes(role);
+    return [ADMIN, RECEPTION, USER].includes(role);
 }
 
 const userCanUpdateCustomers = (role: string) => {
-    return [ADMIN, RECEPTION].includes(role);
+    return [ADMIN, RECEPTION, USER].includes(role);
 }
 
 const userCanDeleteCustomers = (role: string) => {

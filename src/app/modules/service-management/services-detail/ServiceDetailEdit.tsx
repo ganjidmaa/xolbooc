@@ -185,7 +185,7 @@ export const ServiceDetailEdit: React.FC<Props> = ({
 
             <div className='row mb-6'>
               <div className='col-lg-6 fv-row mb-6 mb-lg-0'>
-                <label className='fs-6 fw-bold mb-2 required'>Онош</label>
+                <label className='fs-6 fw-bold mb-2 required'>Ангилал</label>
                 <Select
                   options={categoryOptions}
                   id='category_id'
@@ -216,7 +216,7 @@ export const ServiceDetailEdit: React.FC<Props> = ({
                   value={
                     durationOptions
                       ? durationOptions.filter(
-                          (durOpt) => durOpt.value === formik.values.duration
+                          (durOpt) => durOpt.value == formik.values.duration
                         )[0]
                       : []
                   }
@@ -306,44 +306,23 @@ export const ServiceDetailEdit: React.FC<Props> = ({
                 </div>
               </div>
             )}
+            <div className='mb-6 fv-row'>
+              <label className='col-lg-4 col-xl-3 col-form-label fw-bold fs-6'>
+                Онлайнаар захиалах
+              </label>
 
-            <div className='mb-6 row'>
-                <div className='col-lg-6 row mb-6 mb-lg-0'>
-                    <label className='col-lg-6 col-form-label fw-bold fs-6'>
-                      Онлайнаар захиалах
-                    </label>
-
-                    <div className='col-lg-6 d-flex align-items-center'>
-                      <div className='form-check form-check-solid form-switch fv-row'>
-                        <input
-                          className='form-check-input w-45px h-30px'
-                          type='checkbox'
-                          {...formik.getFieldProps('is_app_option')}
-                          checked={formik.values.is_app_option}
-                        />
-                        <label className='form-check-label'></label>
-                      </div>
-                    </div>
+              <div className='col-lg-8 d-flex align-items-center'>
+                <div className='form-check form-check-solid form-switch fv-row'>
+                  <input
+                    className='form-check-input w-45px h-30px'
+                    type='checkbox'
+                    {...formik.getFieldProps('is_app_option')}
+                    checked={formik.values.is_app_option}
+                  />
+                  <label className='form-check-label'></label>
                 </div>
-                <div className='col-lg-6 row ms-lg-5'>
-                    <label className='col-lg-6 col-form-label fw-bold fs-6'>
-                        Хамгийн их хэрэглэгддэг үйлчилгээ
-                    </label>
-
-                    <div className='col-lg-6 d-flex align-items-center'>
-                      <div className='form-check form-check-solid form-switch fv-row'>
-                        <input
-                          className='form-check-input w-45px h-30px'
-                          type='checkbox'
-                          {...formik.getFieldProps('is_popular')}
-                          checked={formik.values.is_popular}
-                        />
-                        <label className='form-check-label'></label>
-                      </div>
-                    </div>
-                </div>
+              </div>
             </div>
-
             <div className='mb-6 fv-row'>
               <label className='fs-6 fw-bold mb-2'>Тайлбар</label>
               <textarea
@@ -358,7 +337,6 @@ export const ServiceDetailEdit: React.FC<Props> = ({
                 </div>
               )}
             </div>
-
           </div>
         </div>
 

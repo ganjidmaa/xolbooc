@@ -7,6 +7,9 @@ export type Customer = {
     firstname?: string
     avatar?: string | []
     registerno?: string
+    card_number?: string
+    surgery_card_number?: string
+    gender?:string
     email?: string
     phone?: string
     phone2?: string
@@ -29,7 +32,6 @@ export type Customer = {
         label: string
         state: string
     }
-    view_public?: boolean
 }
 
 export type AppointmentHistory = {
@@ -38,6 +40,9 @@ export type AppointmentHistory = {
     status?: string
     cancellation_type?: string
     events: Array<Event>
+    desc?: string
+    diagnosis?: string
+    conclusion?: string
 }
 
 export type Event = {
@@ -49,6 +54,7 @@ export type Event = {
     end_time?: string
     duration?: string
     resource_name?: string
+    treatment?: string
 }
 
 export type CustomersQueryResponse = Response<Array<Customer>>
@@ -84,6 +90,19 @@ export type Payment = {
     desc?: ID
 }
 
+export type ImageUpload = {
+    caption?: string
+    data?: []
+    customer_id?: ID
+    file?:any
+}
+
+export type CustomerImageData = {
+    caption?: string
+    id?: ID
+    image_name?: string
+}
+
 export type Membership = {
     title?: string
     percent?: string
@@ -101,10 +120,6 @@ export type QpayInvoiceRequest = {
     amount: string | number
     desc: string
     appointment_id: string
-    coupon_id?: ID
-    branch_id: ID
-    code?: string
-    coupon_amount?: number
 }
 
 export type QpayInvoiceResponse = {

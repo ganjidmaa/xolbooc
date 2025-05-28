@@ -13,7 +13,6 @@ import {ErrorAlert} from '../../../_metronic/helpers/alerts/Error'
 import {useAuth} from '../auth'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import { TinyEditor } from '../../../_metronic/helpers/components/TinyEditor'
 
 
 const settingsSchema = Yup.object().shape({
@@ -177,19 +176,19 @@ export const SmsOptions: FC = () => {
 
                         <div className='row mb-6'>
                             <div className='col-xl-3'>
-                            <div className='fs-6 fw-bold mt-2 mb-3'>Мэссэжийн түлхүүр үг</div>
+                                <div className='fs-6 fw-bold mt-2 mb-3'>Мэссэжийн түлхүүр үг</div>
                             </div>
                             <div className='col-xl-3 fv-row'>
-                                <span>$customer - үйлчлүүлэгчийн нэр</span><br />
-                                <span>$user     - гоо сайханчийн нэр</span><br />
+                                <span>$customer - эмчлүүлэгчийн нэр</span><br />
+                                <span>$doctor - эмчийн нэр</span><br />
                             </div>
                             <div className='col-xl-3 fv-row'>
-                                <span>$time     - үйлчилгээний цаг</span><br />
-                                <span>$tel      - байгууллагын дугаар</span><br />
+                                <span>$date - үзлэгийн огноо</span><br />
+                                <span>$time - үзлэгийн цаг</span><br />
                             </div>
                             <div className='col-xl-3 fv-row'>
-                                <span>$date     - үйлчилгээний огноо</span><br />
-                                <span>$company  - байгууллагын нэр</span>
+                                <span>$tel - эмнэлэгийн дугаар</span><br />
+                                <span>$hospital - эмнэлэгийн нэр</span>
                             </div>
                         </div>
 
@@ -198,10 +197,12 @@ export const SmsOptions: FC = () => {
                                 <div className='fs-6 fw-bold mt-2 mb-3'>Имэйлийн нэмэлт мэдээлэл</div>
                             </div>
                             <div className='col-xl-8 fv-row'>
-                            <TinyEditor
-                                    value={formik.values.online_booking_email_info || ''}
-                                    setValue={(content) => formik.setFieldValue('online_booking_email_info', content)}
-                                    height={400}
+                                <ReactQuill
+                                    theme="snow"
+                                    value={formik.values.online_booking_email_info}
+                                    onChange={(content) => formik.setFieldValue('online_booking_email_info', content)}
+                                    modules={quillModules}
+                                    className='min-h-160px'
                                     />
                             </div>
                         </div>

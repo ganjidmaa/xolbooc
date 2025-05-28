@@ -12,13 +12,16 @@ export type Event = {
     start_datetime?: string
     title?: string
     desc?: string
+    conclusion?: string
     customer_id?: ID 
     resourceId?: ID 
     status?: string 
+    treatment_status?: string
     item_values?: Array<Item>
     ref?: any
     is_serviceless?: boolean
     invoice?: Invoice
+    diagnosis?: string
 }
 
 export type Invoice = {
@@ -51,6 +54,8 @@ export type Customer = {
     total_paid?: string
     left_payment?: string
     deleted_at?: string | null
+    card_number?: string | null
+    surgery_card_number?: string | null
 }
 
 export type Service = {
@@ -61,11 +66,17 @@ export type Service = {
     type?: ID
     allow_resources?: boolean
     resources?: Array<ServiceResource>
+    available_all_user?: number
 }
 
 export type ServiceType = {
     value?: ID
     label?: string
+}
+
+export type ServiceUser = {
+    service_id?: ID
+    user_id?: string
 }
 
 export type ServiceResource = {
@@ -103,33 +114,18 @@ export type User = {
     branch_id?: string
 }
 
+
 export type MasterData = {
     customers: Array<Customer>
     services: Array<Service>
     serviceTypes: Array<ServiceType>
+    serviceUsers: Array<ServiceUser>
     resources: Array<Resource>
     users: Array<User>
     settings: Settings
     branches: Array<Branch>
     bankAccounts: Array<BankAccount>
-}
-
-export type Shift = {
-    value?: ID
-    label?: string
-    id?: ID
-    title?: string
-    branch_id?: string
-    businessHours: {
-        daysOfWeek: Array<number>
-        startTime: string
-        endTime: string
-    }
-}
-
-export type EventShift = {
-    events: Array<Event>
-    shifts: Array<Shift>
+    serviceMethods: Array<ServiceMethod>
 }
 
 export type EventDatas = {
@@ -157,6 +153,8 @@ export type Item = {
     resource_obj?: Resource
     user_obj?: User
     frequency?: number
+    treatment?: string
+    is_history?: boolean
 }
 
 export type SplitPayment = {
@@ -216,6 +214,8 @@ export type CalendarViewContextProps = {
     setEventUserId: Dispatch<SetStateAction<ID>>
     activeTab?: ID
     setActiveTab: Dispatch<SetStateAction<ID>>
+    healthCondition?: ID
+    setHealthCondition: Dispatch<SetStateAction<ID>>
 }
 
 export type CalendarDataContextProps = {
@@ -225,7 +225,14 @@ export type CalendarDataContextProps = {
     users: Array<User>
     branches: Array<Branch>
     bankAccounts: Array<BankAccount>
+    serviceUsers: Array<ServiceUser>
+    serviceMethods: Array<ServiceMethod>
     refetch: () => void
+}
+
+export type ServiceMethod = {
+    label: string,
+    value: string
 }
 
 export type CalendarItemContextProps = {
@@ -233,6 +240,10 @@ export type CalendarItemContextProps = {
     itemDatas: Array<Item>
     setItemDatas: Dispatch<SetStateAction<Array<Item>>>
     desc: string,
+    conclusion: string,
+    diagnosis: string,
+    setDiagnosis: Dispatch<SetStateAction<string>>
+    setConclusion: Dispatch<SetStateAction<string>>
     setDesc: Dispatch<SetStateAction<string>>
 }
 
@@ -248,6 +259,71 @@ export const initialCalendarView: CalendarViewContextProps = {
     setEventStartDate: () => {},
     setEventUserId: () => {},
     setActiveTab: () => {},
+    setHealthCondition: () => {}
+}
+
+export type HealthCondition = {
+    appointment_id: ID
+    farsightedness?: VO
+    Ph?: VO
+    with_glasses?: VO
+    nearsightedness?: VO
+    air_tonometer?: TO
+    CCT?: TO
+    go_scope?: OD_OS
+    eye_movement?: OD_OS
+    refraction?: OD_OS
+    cranial_angle?: OD_OS
+    color?: OD_OS
+    pathological_discharge?: OD_OS
+    tear_path?: OD_OS
+    eye_recesses?: OD_OS
+    eyelids?: OD_OS
+    mucus?: OD_OS
+    sclera?: OD_OS
+    cornea?: OD_OS
+    sought_camera?: OD_OS
+    rainbow_cover?: OD_OS
+    pupil?: OD_OS
+    RAPD?: OD_OS
+    crystal?: OD_OS
+    glass?: OD_OS
+    eye_disk?: OD_OS
+    CDR?: OD_OS
+    A_V?: OD_OS
+    S_H?: OD_OS
+    K_W?: OD_OS
+    S_S?: OD_OS
+    reticulated?: OD_OS
+    yallow_dot?: OD_OS
+    outside?: OD_OS
+    distance_R?: glass_recipe
+    distance_L?: glass_recipe
+    near_R?: glass_recipe
+    near_L?: glass_recipe 
+}
+
+export type VO = {
+    VOD?: string
+    VOS?: string
+    VOU?: string
+}
+
+export type TO = {
+    TOD?: string
+    TOS?: string
+}
+
+export type glass_recipe = {
+    SPH?: string
+    CYL?: string
+    AXIS?: string
+    VISION?: string
+}
+
+export type OD_OS = {
+    OD?: string
+    OS?: string
 }
 
 export const initialCalendarData: CalendarDataContextProps = {
@@ -257,6 +333,8 @@ export const initialCalendarData: CalendarDataContextProps = {
     users: [],
     branches: [],
     bankAccounts: [],
+    serviceUsers: [],
+    serviceMethods: [],
     refetch: () => {}
 }
 
@@ -265,7 +343,11 @@ export const initialCalendarItem: CalendarItemContextProps = {
     itemDatas: [],
     setItemDatas: () => {},
     desc: '',
+    diagnosis: '',
+    setDiagnosis: ()=>{},
+    conclusion: '',
     setDesc: () => {},
+    setConclusion: () => {},
 }
 
 export const initialCalendarQuery: CalendarQueryContextProps = {

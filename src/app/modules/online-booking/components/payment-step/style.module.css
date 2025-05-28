@@ -1,7 +1,7 @@
 .countdown {
     position: absolute;
     right: 10px;
-    top: 30px;
+    top: 10px;
     opacity: .5;
 }
 
@@ -12,20 +12,17 @@
     line-height: 14px;
     margin-inline: min(4rem, 5vw);
     margin: 10px 5px;
-    text-align: center;
 }
 
 .qrContainer {
-    border: 1px solid #555;
+    border: 1px solid #04c8c87f;
     border-radius: 5px;
     overflow: hidden;
-    width: 200px;
-    height: 200px;
 }
 
 .qrContainer img {
-    width: 100%;
-    height: 100%;
+    width: clamp(180px, 1rem + 20vw, 20rem);
+    height: clamp(180px, 1rem + 20vw, 20rem);
 }
 
 .buttonContainer {
@@ -33,47 +30,4 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-}
-
-.mobileCheckBtn {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    background-color: white;
-    box-shadow: 0 -4px 2px rgba(0, 0, 0, 0.031);
-    z-index: 1;
-    padding-inline: 20px;
-}
-
-.mobileCheckBtn button {
-    float: inline-end;
-}
-
-.deeplinkContainer {
- display: grid;
- grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.deeplinkCard {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 30px;
-    margin-inline: auto;
-}
-
-.deeplinkCard img {
-    width: 100%;
-    height: 100%;
-}
-
-@media screen and (max-width: 768px) {
-    .qrContainer {
-        width: 150px;
-        height: 150px;
-        border: none;
-    }
-    .countdown {
-        top: 60px;
-    }
 }

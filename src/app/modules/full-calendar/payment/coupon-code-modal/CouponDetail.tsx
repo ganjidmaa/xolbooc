@@ -32,7 +32,7 @@ const CouponDetail:FC<Props> = ({couponCode, usable_balance}) => {
                     )}
                     onClick={() => {setNavText('service')}}
                 >
-                    Үйлчилгээ
+                    Эмчилгээ
                 </div>
                 <div className={clsx(
                         'btn btn-color-gray-400 btn-active btn-active-secondary px-6 py-3 me-2',
@@ -156,7 +156,7 @@ const CouponDetail:FC<Props> = ({couponCode, usable_balance}) => {
                             {couponCode.is_all_services === true && 
                                 <tr>
                                     <td className="d-flex align-items-center">
-                                        <span className="fw-semibold fs-5 text-gray-700">Бүх үйлчилгээ</span>
+                                        <span className="fw-semibold fs-5 text-gray-700">Бүх эмчилгээ</span>
                                     </td>
                                     <td>
                                         <KTSVG path='/media/icons/duotune/general/gen043.svg' className='svg-icon-1 svg-icon-success' />

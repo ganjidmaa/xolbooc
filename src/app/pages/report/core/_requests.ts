@@ -41,9 +41,9 @@ const attendanceReportByRushHours = (dateInterval: dateInterval):  Promise<Respo
         .then((response: AxiosResponse<Response<ReportResponse>>) => response.data)
 }
 
-const customerReportByFrequency = (dateInterval: dateInterval):  Promise<Response<ReportResponse>> => {
+const serviceReortByEvents = (dateInterval: dateInterval):  Promise<Response<ReportResponse>> => {
     return axios
-        .post(`${REPORT_URL}/customer_report_by_frequency`, dateInterval)
+        .post(`${REPORT_URL}/service_report_by_events`, dateInterval)
         .then((response: AxiosResponse<Response<ReportResponse>>) => response.data)
 }
 
@@ -54,5 +54,5 @@ export {
     attendanceReportByUsers,
     attendanceReportByServices,
     attendanceReportByRushHours,
-    customerReportByFrequency
+    serviceReortByEvents
 }

@@ -11,17 +11,13 @@ const editCustomerSchema = Yup.object().shape({
     .min(3, 'Багадаа 3 тэмдэгт байна')
     .max(50, 'Ихдээ 50 тэмдэгт байна')
     .required('Нэр оруулна уу'),
-  // lastname: Yup.string()
-  //   .min(3, 'Багадаа 3 тэмдэгт байна')
-  //   .max(50, 'Ихдээ 50 тэмдэгт байна')
-  //   .required('Овог оруулна уу'),
+  registerno: Yup.string()
+    .min(10, '10 оронтой дугаар оруулна уу')
+    .max(10, '10 оронтой дугаар оруулна уу'),
   phone: Yup.string()
     .min(8, '8 оронтой дугаар оруулна уу')
     .max(8, '8 оронтой дугаар оруулна уу')
-    .required('Утас оруулна уу'),
-  phone2: Yup.string()
-    .min(8, '8 оронтой дугаар оруулна уу')
-    .max(8, '8 оронтой дугаар оруулна уу')   
+    .required('Утас оруулна уу'),  
 })
 
 const CustomerCreateForm = () => {
@@ -32,7 +28,9 @@ const CustomerCreateForm = () => {
     firstname: '',
     lastname: '',
     phone: '',
-    phone2: ''
+    registerno: '',
+    card_number: '',
+    surgery_card_number: ''
   })
 
   const cancel = (customer?: Customer) => {
@@ -111,12 +109,12 @@ const CustomerCreateForm = () => {
             )}
           </div>
 
-          <div className='fv-row mb-3'>
-            {/* <label className="d-block fs-6 fw-bold mb-2">Нэмэлт утас</label> */}
+          {/* <div className='fv-row mb-4'>
+            // {/* <label className="d-block fs-6 fw-bold mb-2">Нэмэлт утас</label> 
             <input 
               type="phone" 
               className="form-control" 
-              placeholder="Нэмэлт утас" 
+              placeholder="Утас" 
               {...formik.getFieldProps('phone2')} 
             />
             {formik.touched.phone2 && formik.errors.phone2 && (
@@ -124,6 +122,41 @@ const CustomerCreateForm = () => {
                 <div className='fv-help-block'>{formik.errors.phone2}</div>
               </div>
             )}
+          </div> */}
+
+          <div className='fv-row mb-4'>
+            {/* <label className="d-block fs-6 fw-bold mb-2 required">Утас</label> */}
+            <input 
+              type="text" 
+              className="form-control" 
+              placeholder="Регистрийн дугаар" 
+              {...formik.getFieldProps('registerno')} 
+            />
+            {formik.touched.registerno && formik.errors.registerno && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>{formik.errors.registerno}</div>
+              </div>
+            )}
+          </div>
+
+          <div className='fv-row mb-4'>
+            {/* <label className="d-block fs-6 fw-bold mb-2 required">Утас</label> */}
+            <input 
+              type="text" 
+              className="form-control" 
+              placeholder="Картын дугаар" 
+              {...formik.getFieldProps('card_number')} 
+            />
+          </div>
+
+          <div className='fv-row mb-4'>
+            {/* <label className="d-block fs-6 fw-bold mb-2 required">Утас</label> */}
+            <input 
+              type="phone" 
+              className="form-control" 
+              placeholder="Мэс заслын картын дугаар" 
+              {...formik.getFieldProps('surgery_card_number')} 
+            />
           </div>
         </div>
 

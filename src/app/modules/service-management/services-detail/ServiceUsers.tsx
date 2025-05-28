@@ -15,7 +15,7 @@ const ServiceUsers: React.FC<Props> = ({formik, users}) => {
 
     const updateData = (field: string, value: any) => {
         formik.setFieldValue(field, value)
-        value === true ? checkAllUser() : unCheckAllUser()
+        value == true ? checkAllUser() : unCheckAllUser()
     }
 
     const checkAllUser = () => {

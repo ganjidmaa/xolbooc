@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { Coupon } from '../core/_models'
 
 const CouponCodeEditModalFormWrapper = () => {
-  const {setItemIdForUpdate} = useListView()
+  const {itemIdForUpdate, setItemIdForUpdate} = useListView()
   const [coupons, setCoupons] = useState<Array<Coupon>>([])
 
   const {
